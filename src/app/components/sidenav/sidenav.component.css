@@ -16,15 +16,17 @@ mat-sidenav {
 }
 
 .content {
-    height: calc(100vh - 98px);
+    height: calc(100vh - 130px);
+    border-radius: 10px;
     margin: 16px;
     margin-left: 32px;
-    display: flex;
+    padding: 16px;
+    overflow: auto;
+    /* display: flex;
     justify-content: center;
     align-items: center;
     font-size: 2rem;
-    color: lightgray;
-    border-radius: 10px;
+    color: lightgray; */
 }
 
 mat-sidenav-container {
@@ -47,6 +49,12 @@ mat-icon {
     width: 100px;
     height: 100px;
     border-radius: 50%;
+}
+
+.product {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
 }
 
 .name {
