@@ -1,1 +1,23 @@
-<p>client works!</p>
+<h1>Clientes</h1>
+<dx-data-grid
+  id="gridContainer"
+  [customizeColumns]="customizeColumns"
+  [dataSource]="clients"
+  keyExpr="id"
+  [showBorders]="true"
+  [columns]="[{ dataField: 'name', caption: 'Nome' }, { dataField: 'email', caption: 'Email' }, { dataField: 'cpf', caption: 'Cpf' }, { dataField: 'phone', caption: 'Telefone' }, { dataField: 'address', caption: 'Endereço' }, { dataField: 'city', caption: 'Cidade' }, { dataField: 'state', caption: 'Estado' }, { dataField: 'zipCode', caption: 'CEP' }]"
+>
+  <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+  
+  <dxo-paging [pageSize]="10"> </dxo-paging>
+  <dxo-pager
+    [visible]="true"
+    [allowedPageSizes]="allowedPageSizes"
+    [displayMode]="'full'"
+    [showPageSizeSelector]="true"
+    [showInfo]="true"
+    [showNavigationButtons]="true"
+  >
+  </dxo-pager>
+</dx-data-grid>
+

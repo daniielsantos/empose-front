@@ -1,1 +1,22 @@
-<p>order works!</p>
+<h1>Pedidos</h1>
+<dx-data-grid
+  id="gridContainer"
+  [customizeColumns]="customizeColumns"
+  [dataSource]="orders"
+  keyExpr="id"
+  [showBorders]="true"
+  [columns]="[{ dataField: 'id', caption: 'ID' }, { dataField: 'client.name', caption: 'Cliente' }, { dataField: 'status', caption: 'Status' }, { dataField: 'createdAt', caption: 'Data do Pedido' }, { dataField: 'paymentMethod', caption: 'Forma de Pagamento' }, { dataField: 'total', caption: 'Valor Total' } ]"
+>
+  <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+  
+  <dxo-paging [pageSize]="10"> </dxo-paging>
+  <dxo-pager
+    [visible]="true"
+    [allowedPageSizes]="allowedPageSizes"
+    [displayMode]="'full'"
+    [showPageSizeSelector]="true"
+    [showInfo]="true"
+    [showNavigationButtons]="true"
+  >
+  </dxo-pager>
+</dx-data-grid>

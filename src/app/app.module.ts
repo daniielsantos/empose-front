@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,9 +18,13 @@ import { ProductComponent } from './pages/product/product.component';
 import { DocumentationComponent } from './pages/documentation/documentation.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { EmailSenderComponent } from './pages/email-sender/email-sender.component';
-
+import { DxDataGridModule, DxScrollViewModule, DxButtonModule, DxListModule, DxCheckBoxModule, DxSelectBoxModule } from 'devextreme-angular';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 @NgModule({
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
   declarations: [
     AppComponent,
     SidenavComponent,
@@ -40,9 +44,17 @@ import { EmailSenderComponent } from './pages/email-sender/email-sender.componen
     MatSidenavModule,
     MatButtonModule,
     MatIconModule,
-    MatDividerModule
+    MatDividerModule,
+    DxDataGridModule,
+    DxScrollViewModule,
+    DxButtonModule,
+    DxListModule,
+    DxCheckBoxModule,
+    DxSelectBoxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+platformBrowserDynamic().bootstrapModule(AppModule);
