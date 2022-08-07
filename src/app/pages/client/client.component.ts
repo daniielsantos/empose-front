@@ -13,7 +13,9 @@ export class ClientComponent implements OnInit {
   readonly allowedPageSizes = [5, 10, 'all'];
 
   constructor(private clientService: ClientService) { 
-    this.clients = this.clientService.getClients();
+    this.clientService.findAll().subscribe(clients => {
+      this.clients = clients;
+    })
   }
 
   ngOnInit(): void {

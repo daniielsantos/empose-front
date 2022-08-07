@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { NgModule, Component, enableProdMode, OnInit } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
+import { DxDataGridModule } from 'devextreme-angular';
+import * as AspNetData from 'devextreme-aspnet-data-nojquery';
 import { Order } from 'src/app/shared/models/order.model';
+import { Client } from 'src/app/shared/models/client.model';
+import { environment } from 'src/environments/environment';
 import { OrderService } from './services/order.service';
 
 @Component({
@@ -8,17 +15,22 @@ import { OrderService } from './services/order.service';
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
+  url: string = `${environment.apiUrl}`;
+
   orders: Order[] = [];
   readonly allowedPageSizes = [5, 10, 'all'];
 
   constructor(private orderService: OrderService) { 
-    this.orders = this.orderService.getOrders();
+    this.orderService.findAll().subscribe(orders => {
+      this.orders = orders;
+      console.log(orders);
+    });
   }
 
   ngOnInit(): void {
   }
   
   customizeColumns(columns: any) {
-    // columns[0].width = 300;
+    // columns[0].cellTemplate = 'cellTemplate';
   }
 }

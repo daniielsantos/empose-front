@@ -12,7 +12,9 @@ export class ProductComponent implements OnInit {
   readonly allowedPageSizes = [5, 10, 'all'];
 
   constructor(private productService: ProductService) { 
-    this.products = this.productService.getProducts();
+    this.productService.findAll().subscribe(products => {
+      this.products = products;
+    })
   }
 
   ngOnInit(): void {

@@ -20,6 +20,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { EmailSenderComponent } from './pages/email-sender/email-sender.component';
 import { DxDataGridModule, DxScrollViewModule, DxButtonModule, DxListModule, DxCheckBoxModule, DxSelectBoxModule } from 'devextreme-angular';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   schemas: [
@@ -50,7 +51,8 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
     DxButtonModule,
     DxListModule,
     DxCheckBoxModule,
-    DxSelectBoxModule
+    DxSelectBoxModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

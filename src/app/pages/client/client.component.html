@@ -5,10 +5,28 @@
   [dataSource]="clients"
   keyExpr="id"
   [showBorders]="true"
-  [columns]="[{ dataField: 'name', caption: 'Nome' }, { dataField: 'email', caption: 'Email' }, { dataField: 'cpf', caption: 'Cpf' }, { dataField: 'phone', caption: 'Telefone' }, { dataField: 'address', caption: 'Endereço' }, { dataField: 'city', caption: 'Cidade' }, { dataField: 'state', caption: 'Estado' }, { dataField: 'zipCode', caption: 'CEP' }]"
+  [columns]="[
+  { dataField: 'name', caption: 'Nome' }, 
+  { dataField: 'email', caption: 'Email' }, 
+  { dataField: 'cpf', caption: 'Cpf' }, 
+  { dataField: 'phoneNumber', caption: 'Telefone' }, 
+  { dataField: 'address[0].city', caption: 'Cidade' }, 
+  { dataField: 'address[0].state', caption: 'Estado' }, 
+  { dataField: 'address[0].zipCode', caption: 'CEP' }]"
 >
   <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
-  
+    
+  <dxo-filter-row [visible]="true"></dxo-filter-row>
+  <dxo-header-filter [visible]="true"></dxo-header-filter>
+  <dxo-group-panel [visible]="true"></dxo-group-panel>
+  <dxo-scrolling mode="virtual"></dxo-scrolling>
+
+  <dxo-editing
+    mode="row"
+    [allowDeleting]="true"
+    [useIcons]="true"
+  ></dxo-editing>
+
   <dxo-paging [pageSize]="10"> </dxo-paging>
   <dxo-pager
     [visible]="true"

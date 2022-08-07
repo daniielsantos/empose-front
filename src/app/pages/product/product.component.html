@@ -5,10 +5,29 @@
   [dataSource]="products"
   keyExpr="id"
   [showBorders]="true"
-  [columns]="[{ dataField: 'name', caption: 'Nome' }, { dataField: 'description', caption: 'Descrição' }, { dataField: 'category', caption: 'Categoria' }, { dataField: 'createdAt', caption: 'Data de Lançamento' }]"
+  [columns]="[
+  { dataField: 'name', caption: 'Nome' }, 
+  { dataField: 'description', caption: 'Descrição' }, 
+  { dataField: 'price', caption: 'Preço' }, 
+  { dataField: 'discount', caption: 'Desconto' }, 
+  { dataField: 'category.name', caption: 'Categoria' }, 
+  { dataField: 'createdAt', caption: 'Data de Lançamento' },
+  { dataField: 'status', caption: 'Status' }, 
+  ]"
 >
   <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
-  
+    
+  <dxo-filter-row [visible]="true"></dxo-filter-row>
+  <dxo-header-filter [visible]="true"></dxo-header-filter>
+  <dxo-group-panel [visible]="true"></dxo-group-panel>
+  <dxo-scrolling mode="virtual"></dxo-scrolling>
+
+  <dxo-editing
+    mode="row"
+    [allowDeleting]="true"
+    [useIcons]="true"
+  ></dxo-editing>
+
   <dxo-paging [pageSize]="10"> </dxo-paging>
   <dxo-pager
     [visible]="true"

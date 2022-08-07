@@ -5,10 +5,26 @@
   [dataSource]="orders"
   keyExpr="id"
   [showBorders]="true"
-  [columns]="[{ dataField: 'id', caption: 'ID' }, { dataField: 'client.name', caption: 'Cliente' }, { dataField: 'status', caption: 'Status' }, { dataField: 'createdAt', caption: 'Data do Pedido' }, { dataField: 'paymentMethod', caption: 'Forma de Pagamento' }, { dataField: 'total', caption: 'Valor Total' } ]"
+  [columns]="[
+  { dataField: 'id', caption: 'ID' }, 
+  { dataField: 'client.name', caption: 'Cliente' }, 
+  { dataField: 'createdAt', caption: 'Data do Pedido' }, 
+  { dataField: 'paymentMethod.name', caption: 'Forma de Pagamento' }, 
+  { dataField: 'total', caption: 'Valor Total' } ]"
 >
   <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
   
+  <dxo-filter-row [visible]="true"></dxo-filter-row>
+  <dxo-header-filter [visible]="true"></dxo-header-filter>
+  <dxo-group-panel [visible]="true"></dxo-group-panel>
+  <dxo-scrolling mode="virtual"></dxo-scrolling>
+
+  <dxo-editing
+    mode="row"
+    [allowDeleting]="true"
+    [useIcons]="true"
+  ></dxo-editing>
+
   <dxo-paging [pageSize]="10"> </dxo-paging>
   <dxo-pager
     [visible]="true"
@@ -19,4 +35,93 @@
     [showNavigationButtons]="true"
   >
   </dxo-pager>
+
+  <div *dxTemplate="let order of 'detail'">
+    <detail-grid [key]="order.key"></detail-grid>
+  </div>
+  <dxo-summary>
+    <dxi-total-item column="Freight" summaryType="sum">
+      <dxo-value-format type="decimal" [precision]="2"></dxo-value-format>
+    </dxi-total-item>
+    <dxi-group-item column="Freight" summaryType="sum">
+      <dxo-value-format type="decimal" [precision]="2"></dxo-value-format>
+    </dxi-group-item>
+    <dxi-group-item summaryType="count"> </dxi-group-item>
+  </dxo-summary>
 </dx-data-grid>
+
+<!-- <dx-data-grid
+  [dataSource]="dataSource"
+  [remoteOperations]="true"
+  [height]="600"
+  [showBorders]="true"
+>
+  <dxo-filter-row [visible]="true"></dxo-filter-row>
+  <dxo-header-filter [visible]="true"></dxo-header-filter>
+  <dxo-group-panel [visible]="true"></dxo-group-panel>
+  <dxo-scrolling mode="virtual"></dxo-scrolling>
+  <dxo-editing
+    mode="row"
+    [allowAdding]="true"
+    [allowUpdating]="true"
+    [allowDeleting]="true"
+  >
+  </dxo-editing>
+  <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
+  <dxo-master-detail [enabled]="true" template="detail"></dxo-master-detail>
+  <dxi-column dataField="client.id" caption="Customer">
+    <dxi-validation-rule
+      type="stringLength"
+      [max]="5"
+      message="The field Customer must be a string with a maximum length of 5."
+    ></dxi-validation-rule>
+    <dxo-lookup
+      [dataSource]="customersData.client"
+      valueExpr="id"
+      displayExpr="name"
+    ></dxo-lookup>
+  </dxi-column>
+  <dxi-column dataField="OrderDate" dataType="date">
+    <dxi-validation-rule
+      type="required"
+      message="The OrderDate field is required."
+    ></dxi-validation-rule>
+  </dxi-column>
+  <dxi-column dataField="Freight">
+    <dxo-header-filter groupInterval="100"></dxo-header-filter>
+    <dxi-validation-rule
+      type="range"
+      [min]="0"
+      [max]="2000"
+      message="The field Freight must be between 0 and 2000."
+    >
+    </dxi-validation-rule>
+  </dxi-column>
+  <dxi-column dataField="ShipCountry">
+    <dxi-validation-rule
+      type="stringLength"
+      [max]="15"
+      message="The field ShipCountry must be a string with a maximum length of 15."
+    ></dxi-validation-rule>
+  </dxi-column>
+  <dxi-column dataField="ShipVia" caption="Shipping Company" dataType="number">
+    <dxo-lookup
+      [dataSource]="shippersData"
+      valueExpr="Value"
+      displayExpr="Text"
+    ></dxo-lookup>
+  </dxi-column>
+
+  <div *dxTemplate="let order of 'detail'">
+    <detail-grid [key]="order.key"></detail-grid>
+  </div>
+  <dxo-summary>
+    <dxi-total-item column="Freight" summaryType="sum">
+      <dxo-value-format type="decimal" [precision]="2"></dxo-value-format>
+    </dxi-total-item>
+    <dxi-group-item column="Freight" summaryType="sum">
+      <dxo-value-format type="decimal" [precision]="2"></dxo-value-format>
+    </dxi-group-item>
+    <dxi-group-item summaryType="count"> </dxi-group-item>
+  </dxo-summary>
+</dx-data-grid> -->
