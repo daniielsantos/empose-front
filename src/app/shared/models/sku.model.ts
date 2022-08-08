@@ -7,7 +7,7 @@ export class Sku {
       public name?: string,
       public description?: string,
       public isActive?: boolean,
-      // public product?: Product,
+      public product?: Product,
       // public inventory?: Inventory
     ) {}
 }

@@ -1,42 +1,195 @@
 <h1>Produtos</h1>
-<dx-data-grid
-  id="gridContainer"
-  [customizeColumns]="customizeColumns"
-  [dataSource]="products"
-  keyExpr="id"
-  [showBorders]="true"
-  [columns]="[
-  { dataField: 'name', caption: 'Nome' }, 
-  { dataField: 'description', caption: 'Descrição' }, 
-  { dataField: 'price', caption: 'Preço' }, 
-  { dataField: 'discount', caption: 'Desconto' }, 
-  { dataField: 'category.name', caption: 'Categoria' }, 
-  { dataField: 'createdAt', caption: 'Data de Lançamento' },
-  { dataField: 'status', caption: 'Status' }, 
-  ]"
->
-  <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+  <li [ngbNavItem]="1">
+    <a ngbNavLink>Produto</a>
+      <ng-template ngbNavContent>
+        
+        <dx-data-grid
+        id="gridContainer"
+        [dataSource]="products"
+        [showBorders]="true"
+        keyExpr="id"
+        (onSaved)="onSavedProduct($event)"
+      >
+        <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+            
+        <dxo-filter-row [visible]="true"></dxo-filter-row>
+        <dxo-header-filter [visible]="true"></dxo-header-filter>
+        <dxo-group-panel [visible]="true"></dxo-group-panel>
+        <dxo-scrolling mode="virtual"></dxo-scrolling>
+
+        <dxo-paging [enabled]="false"></dxo-paging>
+        <dxo-editing
+          mode="row"
+          [allowUpdating]="true"
+          [allowDeleting]="true"
+          [useIcons]="true"
+          [allowAdding]="true"
+        ></dxo-editing>
+      
+        <dxi-column type="buttons" [width]="110">
+          <dxi-button name="edit"></dxi-button>
+          <dxi-button name="delete"></dxi-button>
+ 
+        </dxi-column>
+        <dxi-column dataField="id" caption="Id"></dxi-column>
+        <dxi-column dataField="name" caption="Nome"></dxi-column>
+        <dxi-column dataField="description"></dxi-column>
+        <dxi-column dataField="price"></dxi-column>
+        <dxi-column dataField="status" [width]="130" dataType="boolean"></dxi-column>
+        <dxi-column dataField="discount" [width]="130"></dxi-column>
+        <dxi-column dataField="category.name" [width]="125" caption="Categoria">
+          <dxo-lookup
+            [dataSource]="category"
+            displayExpr="name"
+            valueExpr="name"
+            id="category.id"
+          ></dxo-lookup>
+        </dxi-column>
+      </dx-data-grid>
+
+
+      </ng-template>
+  </li>
+  <li [ngbNavItem]="2">
+    <a ngbNavLink>SKU</a>
+    <ng-template ngbNavContent>
+      
+      <dx-data-grid
+      id="gridContainer"
+      [dataSource]="sku"
+      [showBorders]="true"
+      keyExpr="id"
+      (onSaved)="onSavedSku($event)"
+    >
+      <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+          
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-header-filter [visible]="true"></dxo-header-filter>
+      <dxo-group-panel [visible]="true"></dxo-group-panel>
+      <dxo-scrolling mode="virtual"></dxo-scrolling>
+
+      <dxo-paging [enabled]="false"></dxo-paging>
+      <dxo-editing
+        mode="row"
+        [allowUpdating]="true"
+        [allowDeleting]="true"
+        [useIcons]="true"
+        [allowAdding]="true"
+      ></dxo-editing>
     
-  <dxo-filter-row [visible]="true"></dxo-filter-row>
-  <dxo-header-filter [visible]="true"></dxo-header-filter>
-  <dxo-group-panel [visible]="true"></dxo-group-panel>
-  <dxo-scrolling mode="virtual"></dxo-scrolling>
+      <dxi-column type="buttons" [width]="110">
+        <dxi-button name="edit"></dxi-button>
+        <dxi-button name="delete"></dxi-button>
 
-  <dxo-editing
-    mode="row"
-    [allowDeleting]="true"
-    [useIcons]="true"
-  ></dxo-editing>
+      </dxi-column>
+      <dxi-column dataField="product.name" [width]="125" caption="Produto">
+        <dxo-lookup
+          [dataSource]="products"
+          displayExpr="name"
+          valueExpr="name"
+        ></dxo-lookup>
+      </dxi-column>
+      <!-- <dxi-column dataField="product.id" caption="id Produto"></dxi-column> -->
+      <!-- <dxi-column dataField="product.name" caption="Produto Nome"></dxi-column> -->
+      <dxi-column dataField="name" caption="Sku Nome"></dxi-column>
+      <dxi-column dataField="description" caption="Sku Desc."></dxi-column>
+    </dx-data-grid>
 
-  <dxo-paging [pageSize]="10"> </dxo-paging>
-  <dxo-pager
-    [visible]="true"
-    [allowedPageSizes]="allowedPageSizes"
-    [displayMode]="'full'"
-    [showPageSizeSelector]="true"
-    [showInfo]="true"
-    [showNavigationButtons]="true"
-  >
-  </dxo-pager>
-</dx-data-grid>
+    </ng-template>
+  </li>
+
+
+  <li [ngbNavItem]="3">
+    <a ngbNavLink>Categoria</a>
+    <ng-template ngbNavContent>
+      
+      <dx-data-grid
+      id="gridContainer"
+      [dataSource]="category"
+      [showBorders]="true"
+      keyExpr="id"
+      (onSaved)="onSavedCategory($event)"
+      (onRowRemoved)="onRemovedCategory($event)"
+    >
+      <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+          
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-header-filter [visible]="true"></dxo-header-filter>
+      <dxo-group-panel [visible]="true"></dxo-group-panel>
+      <dxo-scrolling mode="virtual"></dxo-scrolling>
+
+      <dxo-paging [enabled]="false"></dxo-paging>
+      <dxo-editing
+        mode="row"
+        [allowUpdating]="true"
+        [allowDeleting]="true"
+        [useIcons]="true"
+        [allowAdding]="true"
+      ></dxo-editing>
+    
+      <dxi-column type="buttons" [width]="110">
+        <dxi-button name="edit"></dxi-button>
+        <dxi-button name="delete"></dxi-button>
+        <!-- <dxi-button
+          hint="Clone"
+          icon="copy"
+          [visible]="true"
+          [disabled]="false"
+          
+        ></dxi-button> -->
+      </dxi-column>
+      <dxi-column dataField="id" caption="Title"></dxi-column>
+      <dxi-column dataField="name" caption="Nome"></dxi-column>
+      <dxi-column dataField="description" caption="Descrição"></dxi-column>
+    </dx-data-grid>
+
+    </ng-template>
+  </li>
+
+  <li [ngbNavItem]="4">
+    <a ngbNavLink>Inventário</a>
+    <ng-template ngbNavContent>
+      
+      <dx-data-grid
+      id="gridContainer"
+      [dataSource]="inventory"
+      [showBorders]="true"
+      keyExpr="id"
+      (onRowUpdated)="onUpdatedInventory($event)"
+    >
+      <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+          
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-header-filter [visible]="true"></dxo-header-filter>
+      <dxo-group-panel [visible]="true"></dxo-group-panel>
+      <dxo-scrolling mode="virtual"></dxo-scrolling>
+
+      <dxo-paging [enabled]="false"></dxo-paging>
+      <dxo-editing
+        mode="row"
+        [allowUpdating]="true"
+        [useIcons]="true"
+      ></dxo-editing>
+    
+      <dxi-column type="buttons" [width]="110">
+        <dxi-button name="edit"></dxi-button>
+      </dxi-column>
+      <dxi-column dataField="sku.id" caption="Id Sku"></dxi-column>
+      <dxi-column dataField="sku.name" caption="Nome"></dxi-column>
+      <dxi-column dataField="sku.description" caption="Descrição"></dxi-column>
+      <dxi-column dataField="quantity" caption="Quantidade"></dxi-column>
+    </dx-data-grid>
+      
+
+    </ng-template>
+  </li>
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+<!-- <pre>Active: {{ active }}</pre> -->
+
+
+
 

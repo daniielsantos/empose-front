@@ -19,4 +19,8 @@ export class ProductService {
     return this.httpClient.get<Order[]>(`${this.apiUrl}/product`)
   }
 
+  save(product: Product): Observable<Product> {
+    return this.httpClient.post<Product>(`${this.apiUrl}/product`, product)
+  }
+
 }

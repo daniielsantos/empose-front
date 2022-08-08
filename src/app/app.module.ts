@@ -21,6 +21,7 @@ import { EmailSenderComponent } from './pages/email-sender/email-sender.componen
 import { DxDataGridModule, DxScrollViewModule, DxButtonModule, DxListModule, DxCheckBoxModule, DxSelectBoxModule } from 'devextreme-angular';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   schemas: [
@@ -52,7 +53,8 @@ import { HttpClientModule } from '@angular/common/http';
     DxListModule,
     DxCheckBoxModule,
     DxSelectBoxModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
