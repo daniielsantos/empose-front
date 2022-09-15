@@ -9,14 +9,22 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ClientService {
-  private apiUrl: string = `${environment.apiUrl}`;
+  private apiUrl: string = `${environment.apiServer}`;
   
   constructor(
     private httpClient: HttpClient
   ) { }
   
-  findAll(): Observable<Order[]> {
-    return this.httpClient.get<Order[]>(`${this.apiUrl}/client`)
+  findAll(): Observable<Client[]> {
+    return this.httpClient.get<Client[]>(`${this.apiUrl}/client`)
+  }
+
+  save(client: Client): Observable<Client> {
+    return this.httpClient.post<Client>(`${this.apiUrl}/client`, client)
+  }
+
+  update(client: Client): Observable<Client> {
+    return this.httpClient.post<Client>(`${this.apiUrl}/client`, client)
   }
 
 }

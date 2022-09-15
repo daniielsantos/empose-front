@@ -4,6 +4,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { NavigationEnd, Router } from '@angular/router';
 import { delay, filter } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { LoginService } from 'src/app/pages/login/services/login.service';
 
 @UntilDestroy()
 @Component({
@@ -15,7 +16,13 @@ export class SidenavComponent implements OnInit {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
 
-  constructor(private observer: BreakpointObserver, private router: Router) { 
+  private roles: string = '';
+  isLoggedIn = false;
+  showAdminBoard = false;
+  showModeratorBoard = false;
+  username?: string;
+
+  constructor(private observer: BreakpointObserver, private router: Router, private tokenStorageService: LoginService) { 
 
   }
 
@@ -45,6 +52,23 @@ export class SidenavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    console.log("logado ?", this.isLoggedIn)
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.roles = user.role;
+      if(this.roles == 'admin')
+        this.showAdminBoard = true
 
+      this.username = user.name;
+    }
+  }
+  
+
+  logout(): void {
+    
+    this.router.navigate(['/login']);
+    this.tokenStorageService.signOut();
+    window.location.reload();
+  }
 }

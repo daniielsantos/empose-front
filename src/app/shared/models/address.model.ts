@@ -4,7 +4,7 @@ export class Address {
       public address?: string,
       public city?: string,
       public state?: string,
-      public zipCode?: string,
+      public zip_code?: string,
       public country?: string
     ) {}
 }

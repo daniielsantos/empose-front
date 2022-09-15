@@ -22,6 +22,11 @@ import { DxDataGridModule, DxScrollViewModule, DxButtonModule, DxListModule, DxC
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RegisterComponent } from './pages/register/register.component';
+import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './pages/login/login.component';
+import { AuthGuardService } from './auth/auth-guard.service';
+
 
 @NgModule({
   schemas: [
@@ -36,7 +41,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ProductComponent,
     DocumentationComponent,
     NotFoundComponent,
-    EmailSenderComponent
+    EmailSenderComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +61,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     DxCheckBoxModule,
     DxSelectBoxModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
