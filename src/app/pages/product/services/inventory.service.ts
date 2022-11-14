@@ -16,11 +16,11 @@ export class InventoryService {
   ) { }
   
   findAll(): Observable<Inventory[]> {
-    return this.httpClient.get<Inventory[]>(`${this.apiUrl}/inventory`)
+    return this.httpClient.get<Inventory[]>(`${this.apiUrl}/sku-inventory`)
   }
 
   update(inventory: Inventory): Observable<Inventory> {
-    return this.httpClient.put<Inventory>(`${this.apiUrl}/inventory`, inventory)
+    return this.httpClient.put<Inventory>(`${this.apiUrl}/sku-inventory`, inventory)
   }
 
 }

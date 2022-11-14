@@ -1,1 +1,57 @@
-<p>Serviço de envio de email</p>
+<h1>Serviço de Email</h1>
+<div id="grid">
+    <dx-data-grid
+      id="grid-container"
+      [dataSource]="clients"
+      keyExpr="id"
+      [showBorders]="true"
+      (onSelectionChanged)="getChanges($event)"
+    >
+      <dxo-selection
+        [selectAllMode]="allMode"
+        [showCheckBoxesMode]="checkBoxesMode"
+        mode="multiple"
+      ></dxo-selection>
+      <dxo-paging [pageSize]="5"></dxo-paging>
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxi-column
+        dataField="id"
+        caption="Id"
+        [width]="90"
+      ></dxi-column>
+      <dxi-column dataField="name" caption="Nome"></dxi-column>
+      <dxi-column dataField="email" [width]="180" caption="Email"></dxi-column>
+      <dxi-column dataField="cpf" caption="Cpf"></dxi-column>
+      <dxi-column dataField="phone_number" caption="Telefone"></dxi-column>
+      <dxi-column dataField="created_at" dataType="date" caption="Data Criação"></dxi-column>
+      <!-- <dxi-column dataField="amount" format="currency" [width]="90"></dxi-column> -->
+    </dx-data-grid>
+
+  </div>
+<h3>Assunto</h3>
+<div class="left-content">
+    <dx-text-area 
+    [height]="30" 
+    [maxLength]="150" 
+    [(value)]="subjectText"
+    >
+    </dx-text-area>
+</div>
+<h3>Conteudo</h3>
+<div class="full-width-content">
+    <dx-text-area
+        [height]="90"
+        [(value)]="contentText"
+        [valueChangeEvent]="eventValue"
+    >
+    </dx-text-area>
+</div>
+
+<dx-button
+   class="mt-5"
+  id="button"
+  text="Enviar"
+  type="submit"
+  (onClick)="onSubmit()"
+  >
+</dx-button>

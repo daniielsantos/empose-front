@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ClientService } from '../client/services/client.service';
+import themes from 'devextreme/ui/themes';
+import { Client } from 'src/app/shared/models/client.model';
+import { EmailSenderService } from './services/email-sender.service';
+import { EmailOptions } from 'src/app/shared/models/email.model';
 
 @Component({
   selector: 'app-email-sender',
@@ -6,10 +11,58 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./email-sender.component.css']
 })
 export class EmailSenderComponent implements OnInit {
+  clients: Client[] = [];
+  allMode!: string;
+  checkBoxesMode!: string;
+  clientSelected: Client[] = []
 
-  constructor() { }
+  valueChangeEvents: any[] = [];
+  eventValue: string;
+  maxLength = null;
+  value: string;
+  contentText: any;
+  subjectText: any;
+
+  
+
+  constructor(private clientService: ClientService, private emailSenderService: EmailSenderService) { 
+    this.allMode = 'allPages'
+    this.checkBoxesMode = 'always' //themes.current().startsWith('material') ? 'always' : 'onClick';
+    this.clientService.findAll().subscribe(clients => {
+      this.clients = clients
+    })
+    this.contentText = ''
+    this.value = ''
+    this.valueChangeEvents = [{
+      title: 'On Blur',
+      name: 'change',
+    }, {
+      title: 'On Key Up',
+      name: 'keyup',
+    }];
+    this.eventValue = this.valueChangeEvents[0].name;
+  }
+
+  getChanges(data: any) {
+    // console.log(data.selectedRowsData)
+    this.clientSelected = data.selectedRowsData
+  }
 
   ngOnInit(): void {
+  }
+
+
+
+
+//-------- text
+
+  onCheckboxValueChanged(e: any) {
+    console.log(e)
+  }
+
+  async onSubmit() {
+    console.log(this.clientSelected)
+
   }
 
 }

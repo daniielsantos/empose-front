@@ -3,8 +3,28 @@
   <li [ngbNavItem]="1">
     <a ngbNavLink>Produto</a>
       <ng-template ngbNavContent>
-        
+
         <dx-data-grid
+        id="gridContainer"
+        [dataSource]="products"
+        keyExpr="id"
+        [showBorders]="true"
+      >
+        <dxi-column dataField="id" [width]="70" caption="Id"></dxi-column>
+        <dxi-column dataField="name"></dxi-column>
+        <dxi-column dataField="description"></dxi-column>
+        <dxi-column dataField="discount" [width]="170"></dxi-column>
+        <dxi-column dataField="created_at" dataType="date"></dxi-column>
+        <dxo-master-detail [enabled]="true" template="detail"></dxo-master-detail>
+        <div *dxTemplate="let sk of 'skus'">
+          <div class="master-detail-caption">{{
+            sk.name + " " + sk.description
+          }}</div>
+          <detail-grid [key]="sk.id"></detail-grid>
+        </div>
+      </dx-data-grid>
+        
+        <!-- <dx-data-grid
         id="gridContainer"
         [dataSource]="products"
         [showBorders]="true"
@@ -35,18 +55,11 @@
         <dxi-column dataField="id" caption="Id"></dxi-column>
         <dxi-column dataField="name" caption="Nome"></dxi-column>
         <dxi-column dataField="description"></dxi-column>
-        <dxi-column dataField="price"></dxi-column>
         <dxi-column dataField="status" [width]="130" dataType="boolean"></dxi-column>
         <dxi-column dataField="discount" [width]="130"></dxi-column>
-        <dxi-column dataField="category.name" [width]="125" caption="Categoria">
-          <dxo-lookup
-            [dataSource]="category"
-            displayExpr="name"
-            valueExpr="name"
-            id="category.id"
-          ></dxo-lookup>
-        </dxi-column>
-      </dx-data-grid>
+
+
+      </dx-data-grid> -->
 
 
       </ng-template>
@@ -83,17 +96,19 @@
         <dxi-button name="delete"></dxi-button>
 
       </dxi-column>
-      <dxi-column dataField="product.name" [width]="125" caption="Produto">
+      <!-- combo box carregado -->
+      <!-- <dxi-column dataField="product.name" [width]="125" caption="Produto">
         <dxo-lookup
           [dataSource]="products"
           displayExpr="name"
           valueExpr="name"
         ></dxo-lookup>
-      </dxi-column>
-      <!-- <dxi-column dataField="product.id" caption="id Produto"></dxi-column> -->
-      <!-- <dxi-column dataField="product.name" caption="Produto Nome"></dxi-column> -->
+      </dxi-column> -->
+
       <dxi-column dataField="name" caption="Sku Nome"></dxi-column>
       <dxi-column dataField="description" caption="Sku Desc."></dxi-column>
+      <dxi-column dataField="active" caption="Ativo"></dxi-column>
+      <dxi-column dataField="price" caption="Preço" [allowAdding]="true"></dxi-column>
     </dx-data-grid>
 
     </ng-template>
@@ -139,7 +154,7 @@
           
         ></dxi-button> -->
       </dxi-column>
-      <dxi-column dataField="id" caption="Title"></dxi-column>
+      <dxi-column dataField="id" caption="id" [allowEditing]="false"></dxi-column>
       <dxi-column dataField="name" caption="Nome"></dxi-column>
       <dxi-column dataField="description" caption="Descrição"></dxi-column>
     </dx-data-grid>
@@ -175,9 +190,7 @@
       <dxi-column type="buttons" [width]="110">
         <dxi-button name="edit"></dxi-button>
       </dxi-column>
-      <dxi-column dataField="sku.id" caption="Id Sku"></dxi-column>
-      <dxi-column dataField="sku.name" caption="Nome"></dxi-column>
-      <dxi-column dataField="sku.description" caption="Descrição"></dxi-column>
+      <dxi-column dataField="sku_id" caption="Id Sku" [allowEditing]="false"></dxi-column>
       <dxi-column dataField="quantity" caption="Quantidade"></dxi-column>
     </dx-data-grid>
       

@@ -6,6 +6,7 @@
     [showBorders]="true"
     keyExpr="id"
     (onSaved)="onSavedClient($event)"
+    (onRowRemoved)="onRemovedClient($event)"
   >
   <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
       
@@ -37,6 +38,8 @@
   <dxi-column dataField="address[0].city" [width]="130" caption="Cidade"></dxi-column>
   <dxi-column dataField="address[0].state" [width]="125" caption="Estado"></dxi-column>
   <dxi-column dataField="address[0].zip_code" [width]="125" caption="CEP"></dxi-column>
+  <dxi-column dataField="false" dataType="boolean" [width]="125" caption="">
+  </dxi-column>
     <!-- <dxo-lookup
       [dataSource]="clients"
       displayExpr="name"

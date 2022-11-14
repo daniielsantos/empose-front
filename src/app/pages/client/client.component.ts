@@ -1,8 +1,8 @@
-import { Component, OnInit, enableProdMode } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Address } from 'src/app/shared/models/address.model';
 import { Client } from 'src/app/shared/models/client.model';
 import { ClientService } from './services/client.service';
-// enableProdMode()
+
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
@@ -28,28 +28,26 @@ export class ClientComponent implements OnInit {
   }
 
   onSavedClient(data: any) {
-
-    // const category = this.category.find(x => x.name == data.changes[0].data["category"].name);
-    if(data.changes[0].type == "update") {
+    console.log("data ", data)
+    if(data.changes[0] && data.changes[0].type == "update") {
       console.log("entrou update ", data)
-      if(data.changes[0].data["address[0]"]) {
+      if(data.changes[0].data["address"]) {
         let cli = this.clients.find(x => x.id == data.changes[0].data["id"]) || {}
         let addr: Address = {}
-        addr.address = data.changes[0].data["address[0]"].address ? data.changes[0].data["address[0]"]?.address : cli?.address![0].address
-        addr.city = data.changes[0].data["address[0]"].city ? data.changes[0].data["address[0]"]?.city : cli?.address![0].city
-        addr.state = data.changes[0].data["address[0]"].state ? data.changes[0].data["address[0]"]?.state : cli?.address![0].state
-        addr.zip_code = data.changes[0].data["address[0]"].zip_code ? data.changes[0].data["address[0]"]?.zip_code : cli?.address![0].zip_code
+        addr.address = data.changes[0].data["address"].address ? data.changes[0].data["address"]?.address : cli?.address![0].address
+        addr.city = data.changes[0].data["address"].city ? data.changes[0].data["address"]?.city : cli?.address![0].city
+        addr.state = data.changes[0].data["address"].state ? data.changes[0].data["address"]?.state : cli?.address![0].state
+        addr.zip_code = data.changes[0].data["address"].zip_code ? data.changes[0].data["address"]?.zip_code : cli?.address![0].zip_code
         addr.country = "BR"
         cli.address = [addr]
-        console.log("opa ", cli)
+        this.clientService.update(cli).subscribe(cli => {
+          console.log("Client updated successfully");
+        })
       }
-
-      // this.clientService.update(data.data).subscribe(inventory => {
-      //   console.log("Client updated successfully");
-      // })
     }
-    if(data.changes[0].type == "insert") {
-      console.log("entrou insert")
+    
+    if(data.changes[0] && data.changes[0].type == "insert") {
+      console.log("entrou insert ", data.changes[0])
       let c: Client = {
         name: data.changes[0].data["name"],
         email: data.changes[0].data["email"],
@@ -70,13 +68,11 @@ export class ClientComponent implements OnInit {
     }
   }
 
-  // onUpdatedClient(data: any) {
-  //   console.log("data ", data)
-  //   if(data.changes[0].data["address[0]"])
-  //     console.log("aaa ", data.changes[0].data["address[0]"])
-  //   // this.clientService.update(data.data).subscribe(inventory => {
-  //   //   console.log("Inventory updated successfully");
-  //   // })
-  // }
+  onRemovedClient(data: any) {
+    console.log('removed ', data)
+    this.clientService.delete(data.data).subscribe(client => {
+      console.log("Client deleted successfully ",client);
+    })
+  }
 
 }

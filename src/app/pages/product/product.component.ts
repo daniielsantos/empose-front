@@ -7,6 +7,7 @@ import { CategoryService } from './services/category.service';
 import { InventoryService } from './services/inventory.service';
 import { ProductService } from './services/product.service';
 import { SkuService } from './services/sku.service';
+import notify from 'devextreme/ui/notify';
 
 @Component({
   selector: 'app-product',
@@ -24,6 +25,7 @@ export class ProductComponent implements OnInit {
   constructor(private productService: ProductService, private skuService: SkuService, private inventoryService: InventoryService, private categoryService: CategoryService) { 
     this.productService.findAll().subscribe(products => {
       this.products = products;
+      console.log(products)
     })
     this.skuService.findAll().subscribe(skus => {
       this.sku = skus;
@@ -46,33 +48,33 @@ export class ProductComponent implements OnInit {
     data.changes[0].data["discount"] = 0.0;
     data.changes[0].data["category"] = category;    
     this.productService.save(data.changes[0].data).subscribe(product => {
-      console.log("Product saved successfully");
+      notify({message: 'Produto salvo!', width: 400})
     })
   }
 
   onSavedCategory(data: any) {
     if(data.changes[0].type == "update") {
       this.categoryService.update(data.changes[0].data).subscribe(cat => {
-        console.log("Category updated successfully");
+        notify({message: 'Categoria atualizada!', width: 400})
       })
     }
 
     if(data.changes[0].type == "insert") {
       this.categoryService.save(data.changes[0].data).subscribe(cat => {
-        console.log("Category saved successfully");
+        notify({message: 'Categoria salva!', width: 400})
       })
     }
   }
 
   onRemovedCategory(data: any) {
     this.categoryService.delete(data.data).subscribe(cat => {
-      console.log("Category deleted successfully");
+      notify({message: 'Categoria deletada!', width: 400})
     })
   }
 
   onUpdatedInventory(data: any) {
     this.inventoryService.update(data.data).subscribe(inventory => {
-      console.log("Inventory updated successfully");
+      notify({message: 'Inventario atualizado', width: 400})
     })
   }
 
@@ -100,4 +102,18 @@ export class ProductComponent implements OnInit {
     // columns[0].width = 300;
   }
 
+
+
+  // onRowExpanding(e: any){
+  //   console.log("1 ",e)
+  // }
+  // onRowExpanded(e: any) {
+  //   console.log("2 ",e)
+  // }
+  // onRowCollapsing(e: any) {
+  //   console.log("3 ",e)
+  // }
+  // onRowCollapsed(e: any) {
+  //   console.log("4 ",e)
+  // }
 }

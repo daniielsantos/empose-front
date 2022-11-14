@@ -4,7 +4,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { DxDataGridModule } from 'devextreme-angular';
 import * as AspNetData from 'devextreme-aspnet-data-nojquery';
-import { Order } from 'src/app/shared/models/order.model';
+import { Orders } from 'src/app/shared/models/order.model';
 import { Client } from 'src/app/shared/models/client.model';
 import { environment } from 'src/environments/environment';
 import { OrderService } from './services/order.service';
@@ -17,7 +17,7 @@ import { OrderService } from './services/order.service';
 export class OrderComponent implements OnInit {
   url: string = `${environment.apiUrl}`;
 
-  orders: Order[] = [];
+  orders: Orders[] = [];
   readonly allowedPageSizes = [5, 10, 'all'];
 
   constructor(private orderService: OrderService) { 

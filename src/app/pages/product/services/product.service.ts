@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Order } from 'src/app/shared/models/order.model';
+import { Orders } from 'src/app/shared/models/order.model';
 import { Product } from 'src/app/shared/models/product.model';
 import { environment } from 'src/environments/environment';
 
@@ -15,8 +15,8 @@ export class ProductService {
     private httpClient: HttpClient
   ) { }
   
-  findAll(): Observable<Order[]> {
-    return this.httpClient.get<Order[]>(`${this.apiUrl}/product`)
+  findAll(): Observable<Orders[]> {
+    return this.httpClient.get<Orders[]>(`${this.apiUrl}/product`)
   }
 
   save(product: Product): Observable<Product> {

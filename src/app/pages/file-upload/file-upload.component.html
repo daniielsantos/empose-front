@@ -1,0 +1,76 @@
+<!-- <ng-template ngbNavContent> -->
+    <h1>Uploads</h1>
+    <dx-data-grid
+      id="gridContainer"
+      [dataSource]="uploads"
+      [showBorders]="true"
+      keyExpr="id"
+      (onSaved)="onSavedClient($event)"
+      (onRowRemoved)="onRemovedClient($event)"
+    >
+    <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+        
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-header-filter [visible]="true"></dxo-header-filter>
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+    <dxo-scrolling mode="virtual"></dxo-scrolling>
+  
+    <dxo-paging [enabled]="false"></dxo-paging>
+    <dxo-editing
+      mode="row"
+      [allowUpdating]="true"
+      [allowDeleting]="true"
+      [useIcons]="true"
+      [allowAdding]="true"
+    ></dxo-editing>
+  
+    <dxi-column type="buttons" [width]="110">
+      <dxi-button name="edit"></dxi-button>
+      <dxi-button name="delete"></dxi-button>
+    </dxi-column>
+    <dxi-column dataField="id" caption="Id" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="name" caption="Nome"></dxi-column>
+    <dxi-column dataField="path" caption="Caminho" width="500" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="created_at" type="date" caption="Criação" [allowEditing]="false"></dxi-column>
+  </dx-data-grid>
+  <div class="row d-flex justify-content-center align-items-center h-100 mt-4">
+    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+      <div class="card text-black" style="border-radius: 1rem;">
+        <div class="card-body p-5 text-center">
+
+          <div class="mb-md-5 mt-md-4 pb-5">
+            <form
+                id="form" 
+                #form
+                method="post"
+                #formulary="ngForm"
+                action="" 
+                enctype="multipart/form-data"
+            >
+                <h3>Upload de arquivos</h3> 
+                <div id="fileuploader-container">
+                  <dx-file-uploader
+                    class="border border-ligth"
+                    #fileUploader
+                    selectButtonText="Select photo"
+                    name="file"
+                    labelText=""
+                    accept="image/*"
+                    uploadMode="useButtons"
+                    [(value)]="value"
+                    (onUploadStarted)="lol()"
+                  >
+                  </dx-file-uploader>
+                </div>
+                <!-- <dx-button
+                  id="button"
+                  text="Upload file"
+                  type="submit"
+                >
+                </dx-button> -->
+            </form>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>

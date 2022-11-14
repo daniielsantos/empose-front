@@ -1,6 +1,6 @@
 import { Company } from "./company.model";
 
-export class Category {
+export class PaymentMethods {
     constructor(
       public id?: number,
       public name?: string,

@@ -8,14 +8,14 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class RegisterService {
-  private apiUrl: string = `${environment.apiServer}`;
+  private apiUrl: string = `${environment.apiUrl}`;
   
   constructor(
     private httpClient: HttpClient
   ) { }
 
   userLogin(user: Users): Observable<Users[]> {
-    return this.httpClient.post<Users[]>(`${this.apiUrl}/auth/login`, user)
+    return this.httpClient.post<Users[]>(`${this.apiUrl}/users-login`, user)
   }
 
   save(user: Users): Observable<Users> {

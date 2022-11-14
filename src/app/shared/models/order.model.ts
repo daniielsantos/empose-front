@@ -1,14 +1,32 @@
 import { Client } from "./client.model";
-import { OrderItem } from "./orderItem.model";
-import { PaymentMethods } from "./paymentMethods.model";
+import { Company } from "./company.model";
+import { PaymentMethods } from "./payment.methods.model";
+import { Sku } from "./sku.model";
 
-export class Order {
+
+export class OrderItem {
     constructor(
-        public id?: number,
-        public total?: number,
-        public paymentMethod?: PaymentMethods,
-        public client?: Client,
-        public items?: OrderItem[],
-        public createdAt?: Date,
+      public id?: number,
+      public quantity?: number,
+      public order?: Orders,
+      public sku?: Sku,
+      public company?: Company,
+      public created_at?: Date,
+      public updated_at?: Date,
+    ) {}
+}
+
+export class Orders {
+    constructor(
+      public id?: number,
+      public total?: number,
+      public status?: string,
+      public delivery_status?: string,
+      public payment?: PaymentMethods,
+      public client?: Client,
+      public items?: OrderItem[],
+      public company?: Company,
+      public created_at?: Date,
+      public updated_at?: Date,
     ) {}
 }

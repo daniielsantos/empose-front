@@ -19,7 +19,11 @@ export class SkuService {
     return this.httpClient.get<Sku[]>(`${this.apiUrl}/sku`)
   }
 
-  save(sku: any): Observable<any> {
-    return this.httpClient.post<any>(`${this.apiUrl}/product/sku`, sku)
+  save(sku: Sku): Observable<Sku> {
+    return this.httpClient.post<Sku>(`${this.apiUrl}/sku`, sku)
+  }
+
+  update(sku: Sku): Observable<Sku> {
+    return this.httpClient.put<Sku>(`${this.apiUrl}/sku`, sku)
   }
 }

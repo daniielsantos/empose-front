@@ -5,6 +5,7 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ClientComponent } from './pages/client/client.component';
 import { DocumentationComponent } from './pages/documentation/documentation.component';
 import { EmailSenderComponent } from './pages/email-sender/email-sender.component';
+import { FileUploadComponent } from './pages/file-upload/file-upload.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -46,6 +47,10 @@ const routes: Routes = [
       {
         path: 'product',
         component: ProductComponent
+      },
+      {
+        path: 'uploads',
+        component: FileUploadComponent
       },
       {
         path: 'email',
