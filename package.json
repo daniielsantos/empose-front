@@ -29,6 +29,7 @@
     "devextreme-angular": "^21.2.8",
     "devextreme-aspnet-data-nojquery": "^2.8.6",
     "devextreme-cli": "^1.3.2",
+    "jspdf": "^2.5.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

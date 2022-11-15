@@ -19,15 +19,19 @@
 </button>
 Empose
 <span class="flexExpand"></span>
-<button mat-icon-button routerLink="/login" (click)="logout()">LogOut</button>
+<button mat-icon-button routerLink="/login" (click)="logout()">Sair</button>
 
 </mat-toolbar>
 <mat-sidenav-container>
 
 <mat-sidenav #sidenav="matSidenav" >
 
-    <img src="assets/images/e3.png" alt="logo" class="avatar mat-elevation-z8">
-    <h4 class="name">Daniel Santos</h4>
+    <img src="assets/images/e3.png" alt="logo" class="avatar mat-elevation-z8" mat-button (click)="getUser()">
+    <!-- <button mat-button class="menu-button"> -->
+
+        <h4 class="name">Olá, {{username}}</h4>
+        <h5 class="designation">{{userRole}}</h5>
+    <!-- </button> -->
 
     <mat-divider></mat-divider>
 

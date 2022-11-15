@@ -18,14 +18,13 @@ import { ProductComponent } from './pages/product/product.component';
 import { DocumentationComponent } from './pages/documentation/documentation.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { EmailSenderComponent } from './pages/email-sender/email-sender.component';
-import { DxDataGridModule, DxScrollViewModule, DxButtonModule, DxListModule, DxCheckBoxModule, DxSelectBoxModule, DxTextBoxModule, DxFileUploaderModule, DxTextAreaModule, DxTreeListModule, DxTemplateModule } from 'devextreme-angular';
+import { DxDataGridModule, DxScrollViewModule, DxButtonModule, DxListModule, DxCheckBoxModule, DxSelectBoxModule, DxTextBoxModule, DxFileUploaderModule, DxTextAreaModule, DxTreeListModule, DxTemplateModule, DxFormModule } from 'devextreme-angular';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterComponent } from './pages/register/register.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/login/login.component';
-import { AuthGuardService } from './auth/auth-guard.service';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { FileUploadComponent } from './pages/file-upload/file-upload.component';
 
@@ -70,7 +69,8 @@ import { FileUploadComponent } from './pages/file-upload/file-upload.component';
     DxFileUploaderModule,
     DxTextAreaModule,
     DxTreeListModule,
-    DxTemplateModule
+    DxTemplateModule,
+    DxFormModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

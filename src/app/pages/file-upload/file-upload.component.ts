@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Uploads } from 'src/app/shared/models/uploads.model';
-import { environment } from 'src/environments/environment';
+import { Uploads } from 'app/shared/models/uploads.model';
+import { environment } from 'environments/environment';
 import { FileUploadService } from './services/file-upload.service';
 import notify from 'devextreme/ui/notify';
 

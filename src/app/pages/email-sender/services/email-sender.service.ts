@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EmailOptions } from 'src/app/shared/models/email.model';
-import { environment } from 'src/environments/environment';
+import { EmailOptions } from 'app/shared/models/email.model';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root'

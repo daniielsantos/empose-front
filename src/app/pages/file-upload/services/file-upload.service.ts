@@ -1,8 +1,8 @@
 import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { Uploads } from 'src/app/shared/models/uploads.model';
-import { environment } from 'src/environments/environment';
+import { Uploads } from 'app/shared/models/uploads.model';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root'

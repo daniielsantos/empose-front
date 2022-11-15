@@ -7,59 +7,131 @@
         <dx-data-grid
         id="gridContainer"
         [dataSource]="products"
-        keyExpr="id"
-        [showBorders]="true"
-      >
-        <dxi-column dataField="id" [width]="70" caption="Id"></dxi-column>
-        <dxi-column dataField="name"></dxi-column>
-        <dxi-column dataField="description"></dxi-column>
-        <dxi-column dataField="discount" [width]="170"></dxi-column>
-        <dxi-column dataField="created_at" dataType="date"></dxi-column>
-        <dxo-master-detail [enabled]="true" template="detail"></dxo-master-detail>
-        <div *dxTemplate="let sk of 'skus'">
-          <div class="master-detail-caption">{{
-            sk.name + " " + sk.description
-          }}</div>
-          <detail-grid [key]="sk.id"></detail-grid>
-        </div>
-      </dx-data-grid>
-        
-        <!-- <dx-data-grid
-        id="gridContainer"
-        [dataSource]="products"
         [showBorders]="true"
         keyExpr="id"
+        (onExporting)="onExporting($event)"
         (onSaved)="onSavedProduct($event)"
+        (onEditingStart)="productEditing($event)"
       >
         <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
             
         <dxo-filter-row [visible]="true"></dxo-filter-row>
         <dxo-header-filter [visible]="true"></dxo-header-filter>
-        <dxo-group-panel [visible]="true"></dxo-group-panel>
+        <!-- <dxo-group-panel [visible]="true"></dxo-group-panel> -->
         <dxo-scrolling mode="virtual"></dxo-scrolling>
 
         <dxo-paging [enabled]="false"></dxo-paging>
         <dxo-editing
-          mode="row"
+          mode="form"
           [allowUpdating]="true"
           [allowDeleting]="true"
           [useIcons]="true"
           [allowAdding]="true"
-        ></dxo-editing>
+        >
+        </dxo-editing>
       
         <dxi-column type="buttons" [width]="110">
-          <dxi-button name="edit"></dxi-button>
-          <dxi-button name="delete"></dxi-button>
- 
+        <dxi-button name="edit"></dxi-button>
+        <dxi-button name="delete"></dxi-button>
         </dxi-column>
-        <dxi-column dataField="id" caption="Id"></dxi-column>
+
+        <dxi-column dataField="id" [width]="70" caption="Id"></dxi-column>
         <dxi-column dataField="name" caption="Nome"></dxi-column>
-        <dxi-column dataField="description"></dxi-column>
-        <dxi-column dataField="status" [width]="130" dataType="boolean"></dxi-column>
-        <dxi-column dataField="discount" [width]="130"></dxi-column>
+        <dxi-column dataField="description" caption="Descrição"></dxi-column>
+        <dxi-column dataField="discount" caption="Desconto"></dxi-column>
+        <dxi-column dataField="category.name" caption="Categoria"></dxi-column>
+        <dxi-column dataField="active" caption="Ativo" dataType="boolean"></dxi-column>
+        <dxi-column dataField="created_at" caption="Data Criação" dataType="date"></dxi-column>
+  
 
 
-      </dx-data-grid> -->
+
+        
+
+        <dxo-editing
+          [allowUpdating]="true"
+          [allowDeleting]="true"
+          mode="form"
+          (changesChange)="getChanges($event)"
+          >
+                    
+        <dxo-form
+        >
+        
+            <dxi-item itemType="group" caption="Produto" name="prodEdit">
+                <dxi-item dataField="name"></dxi-item>
+                <dxi-item dataField="description"></dxi-item>
+                <dxi-item dataField="discount" ></dxi-item>
+            
+
+
+                <dxi-item
+                  name="catName"
+                  dataField="categories.name"
+                  editorType="dxSelectBox"
+                  [editorOptions]="{items: categories, searchEnabled: true, value: categoryEditing.name} "
+                  >
+         
+                
+              </dxi-item>    
+
+                <dxi-item dataField="active" dataType="boolean" type="boolean"></dxi-item>
+            </dxi-item>
+<!-- ---------------------------------------------------------- -->
+            <dxi-item itemType="group" caption="Skus" name="skus-container">
+                
+              <dx-data-grid
+              id="gridContainer"
+              [dataSource]="prodSkus"
+              [showBorders]="true"
+              keyExpr="id"
+              (onSaved)="onSavedProduct($event)"
+            >
+              <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+                  
+              <dxo-filter-row [visible]="true"></dxo-filter-row>
+              <dxo-header-filter [visible]="true"></dxo-header-filter>
+              <!-- <dxo-group-panel [visible]="true"></dxo-group-panel> -->
+              <dxo-scrolling mode="virtual"></dxo-scrolling>
+      
+              <dxo-paging [enabled]="false"></dxo-paging>
+              <dxo-editing
+                mode="form"
+                [allowDeleting]="true"
+                [allowUpdating]="true"
+                [useIcons]="true"
+                [allowAdding]="true"
+              >
+              </dxo-editing>
+            
+              <dxi-column type="buttons" [width]="90">
+              <dxi-button name="delete"></dxi-button>
+              <dxi-button name="edit"></dxi-button>
+              </dxi-column>
+      
+              <dxi-column dataField="name"></dxi-column>
+              <dxi-column dataField="description"></dxi-column>
+              <dxi-column dataField="price"></dxi-column>
+              <dxi-column dataField="active" dataType="boolean"></dxi-column>
+              <!-- <dxi-column name="skuDetail" dataField="description" caption="Sku" [width]="125">
+                <dxo-lookup [dataSource]="sku" displayExpr="id" valueExpr="name">
+                </dxo-lookup>
+              </dxi-column> -->
+              </dx-data-grid>
+
+            </dxi-item>
+        </dxo-form>
+        
+      </dxo-editing>
+
+
+
+    </dx-data-grid>
+
+
+
+
+
 
 
       </ng-template>
@@ -121,7 +193,7 @@
       
       <dx-data-grid
       id="gridContainer"
-      [dataSource]="category"
+      [dataSource]="categories"
       [showBorders]="true"
       keyExpr="id"
       (onSaved)="onSavedCategory($event)"

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Address } from 'src/app/shared/models/address.model';
-import { Client } from 'src/app/shared/models/client.model';
+import { Address } from 'app/shared/models/address.model';
+import { Client } from 'app/shared/models/client.model';
 import { ClientService } from './services/client.service';
 
 @Component({
