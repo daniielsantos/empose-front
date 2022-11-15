@@ -17,7 +17,7 @@
 
   <dxo-paging [enabled]="false"></dxo-paging>
   <dxo-editing
-    mode="row"
+    mode="form"
     [allowUpdating]="true"
     [allowDeleting]="true"
     [useIcons]="true"
@@ -38,14 +38,6 @@
   <dxi-column dataField="address[0].city" [width]="130" caption="Cidade"></dxi-column>
   <dxi-column dataField="address[0].state" [width]="125" caption="Estado"></dxi-column>
   <dxi-column dataField="address[0].zip_code" [width]="125" caption="CEP"></dxi-column>
-  <dxi-column dataField="false" dataType="boolean" [width]="125" caption="">
-  </dxi-column>
-    <!-- <dxo-lookup
-      [dataSource]="clients"
-      displayExpr="name"
-      valueExpr="name"
-      id="clients.id"
-    ></dxo-lookup> -->
   
 </dx-data-grid>
 

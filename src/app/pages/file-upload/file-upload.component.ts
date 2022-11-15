@@ -20,9 +20,9 @@ export class FileUploadComponent implements OnInit {
   value: any[] = []
 
   updateClick() {
-
   }
-  lol() {
+
+  startUpload() {
     console.log('value ', this.value[0])
     let file = this.value[0]
     let formData = new FormData();
@@ -31,7 +31,7 @@ export class FileUploadComponent implements OnInit {
       // console.log('done')
       window.location.reload();
     })
-    notify("Upload feito!")
+    // notify("Upload feito!")
     return true
   }
 
@@ -42,36 +42,12 @@ export class FileUploadComponent implements OnInit {
   }
 
 
-
-  uploadFile(file: File, uploadInfoCallback: any) {
-    // console.log('uploadInfoCallback ', uploadInfoCallback)
-    let url = environment.apiUrl + '/uploads'
-    let formData = new FormData();
-    formData.append("file", file, file.name);
-    console.log("file ", file)
-    // this.crazy(file)
-    uploadInfoCallback(100)
-    // this.fileUploadService.save(formData).subscribe(res => {
-    //   console.log('saved')
-    // })
-    // uploadInfoCallback(200)
-    // return this.fileUploadService.save(formData).subscribe(res => {
-    //   console.log('saved')
-    // })
-    // return this.fileUploadService.upload(url, formData, uploadInfoCallback).toPromise()
-  }
-  crazy(data: any) {
-    console.log("crazy ", data)
-  }
-
-
   ngOnInit(): void {
-    // console.log("this.clients ", this.clients)
   }
 
-  customizeColumns(columns: any) {
-    // columns[0].width = 300;
-  }
+  // customizeColumns(columns: any) {
+  //   // columns[0].width = 300;
+  // }
 
   onSavedClient(data: any) {
     if(data.changes[0] && data.changes[0].type == "update") {

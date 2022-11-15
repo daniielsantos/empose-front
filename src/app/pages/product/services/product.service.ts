@@ -15,8 +15,8 @@ export class ProductService {
     private httpClient: HttpClient
   ) { }
   
-  findAll(): Observable<Orders[]> {
-    return this.httpClient.get<Orders[]>(`${this.apiUrl}/product`)
+  findAll(): Observable<Product[]> {
+    return this.httpClient.get<Product[]>(`${this.apiUrl}/product`)
   }
 
   save(product: Product): Observable<Product> {
