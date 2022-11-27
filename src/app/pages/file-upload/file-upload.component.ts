@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Uploads } from 'app/shared/models/uploads.model';
-import { environment } from 'environments/environment';
 import { FileUploadService } from './services/file-upload.service';
 import notify from 'devextreme/ui/notify';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-file-upload',
@@ -12,30 +12,26 @@ import notify from 'devextreme/ui/notify';
   styleUrls: ['./file-upload.component.css']
 })
 export class FileUploadComponent implements OnInit {
-  // @ViewChild('form') form: NgForm;
   uploads: Uploads[] = [];
   readonly allowedPageSizes = [5, 10, 'all'];
   @ViewChild('form')
   form!: NgForm;
   value: any[] = []
 
-  updateClick() {
-  }
 
-  startUpload() {
-    console.log('value ', this.value[0])
-    let file = this.value[0]
+  startUpload(e:any) {
     let formData = new FormData();
-    formData.append("file", file, file.name);
+    formData.append("file", e.file, e.file.name);
     this.fileUploadService.save(formData).subscribe(res => {
-      // console.log('done')
-      window.location.reload();
+      this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['uploads']);
+      });
     })
     // notify("Upload feito!")
     return true
   }
 
-  constructor(private fileUploadService: FileUploadService, private httpClient: HttpClient) { 
+  constructor(private fileUploadService: FileUploadService, private httpClient: HttpClient, private router: Router) { 
     this.fileUploadService.findAll().subscribe(uploads => {
       this.uploads = uploads;
     })
@@ -44,10 +40,6 @@ export class FileUploadComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  // customizeColumns(columns: any) {
-  //   // columns[0].width = 300;
-  // }
 
   onSavedClient(data: any) {
     if(data.changes[0] && data.changes[0].type == "update") {

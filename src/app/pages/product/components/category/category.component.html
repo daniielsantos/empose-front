@@ -1,0 +1,40 @@
+<dx-data-grid
+    id="gridContainerCat"
+    [dataSource]="categories"
+    [showBorders]="true"
+    keyExpr="id"
+    (onSaved)="onSavedCategory($event)"
+    (onRowRemoved)="onRemovedCategory($event)"
+>
+    <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+        
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-header-filter [visible]="true"></dxo-header-filter>
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+    <dxo-scrolling mode="virtual"></dxo-scrolling>
+
+    <dxo-paging [enabled]="false"></dxo-paging>
+    <dxo-editing
+    mode="row"
+    [allowUpdating]="true"
+    [allowDeleting]="true"
+    [useIcons]="true"
+    [allowAdding]="true"
+    ></dxo-editing>
+
+    <dxi-column type="buttons" [width]="110">
+    <dxi-button name="edit"></dxi-button>
+    <dxi-button name="delete"></dxi-button>
+    <!-- <dxi-button
+        hint="Clone"
+        icon="copy"
+        [visible]="true"
+        [disabled]="false"
+        
+    ></dxi-button> -->
+    </dxi-column>
+    <dxi-column dataField="id" caption="id" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="name" caption="Nome"></dxi-column>
+    <dxi-column dataField="description" caption="Descrição"></dxi-column>
+</dx-data-grid>
+

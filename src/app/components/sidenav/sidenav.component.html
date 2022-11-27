@@ -37,12 +37,13 @@ Empose
 
     <button mat-button class="menu-button" [routerLink]="['home']">
         <mat-icon>insert_chart_outlined</mat-icon>
-        <span>Home</span>
+        <span>Dashboard</span>
     </button>
     <button mat-button class="menu-button" [routerLink]="['order']">
         <mat-icon>local_mall</mat-icon>
         <span>Pedidos</span>
     </button>
+
     <button mat-button class="menu-button" [routerLink]="['client']">
         <mat-icon>people_outline</mat-icon>
         <span>Clientes</span>
@@ -60,7 +61,14 @@ Empose
         <mat-icon>mail_outline</mat-icon>
         <span>Email</span>
     </button>
-
+    <button mat-button class="menu-button" [routerLink]="['users']">
+        <mat-icon>supervised_user_circle</mat-icon>
+        <span>Usuários</span>
+    </button>
+    <button mat-button class="menu-button" [routerLink]="['payment-methods']">
+        <mat-icon>credit_card</mat-icon>
+        <span>Meios de Pagamento</span>
+    </button>
     <mat-divider></mat-divider>
 
     <button mat-button class="menu-button" [routerLink]="['documentation']">

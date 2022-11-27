@@ -1,21 +1,20 @@
 <section class="vh-100 gradient-custom">
-  <div class="container py-5 h-100">
+  <div class="container h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
         <div class="card text-black" style="border-radius: 1rem;">
           <div class="card-body p-5 text-center">
 
-            <div class="mb-md-5 mt-md-4 pb-4">
 
-              <h2 class="fw-bold mb-2 text-uppercase">Registro</h2>
-              <p class="text-black-50 mb-5">Por favor, entre com seu email e senha!</p>
+              <h2 class="fw-bold mb-1 text-uppercase">Cadastro de empresa</h2>
+              <p class="text-black-50 mb-1">Por favor, entre com os dados da sua empresa!</p>
               <form
                   name="form"
                   (ngSubmit)="f.form.valid && onSubmit()"
                   #f="ngForm"
                   novalidate
               >
-                  <div class="form-outline form-black mb-4">
+                  <div class="form-outline form-black">
                       <div class="form-group">
                           <input
                           type="text"
@@ -35,65 +34,133 @@
                       </div>
                       <label class="form-label" for="typeEmailX">Nome</label>
                   </div>
-                  <div class="form-outline form-black mb-4">
+
+                  <div class="form-outline form-black mb-1">
+                    <div class="form-group">
+                        <input
+                        type="text"
+                        class="form-control form-control-lg"
+                        name="email"
+                        [(ngModel)]="form.email"
+                        required
+                        #email="ngModel"
+                        />
+                        <div
+                        class="alert alert-danger"
+                        role="alert"
+                        *ngIf="email.errors && f.submitted"
+                        >
+                        Email is required!
+                        </div>
+                    </div>
+                    <label class="form-label" for="typeEmailX">Email</label>
+                  </div>
+
+                  <div class="form-outline form-white mb-1">
+                    <div class="form-group">
+                        <input
+                          type="password"
+                          class="form-control form-control-lg"
+                          name="password"
+                          [(ngModel)]="form.password"
+                          required
+                          minlength="4"
+                          #password="ngModel"
+                        />
+                        <div
+                          class="alert alert-danger"
+                          role="alert"
+                          *ngIf="password.errors && f.submitted"
+                        >
+                          <div *ngIf="password.errors?.['required']">Senha requerida</div>
+                          <div *ngIf="password.errors?.['minlength']">
+                            Senha deve conter ao menos 4 caracteres
+                          </div>
+                        </div>
+                      </div>
+                    <label class="form-label" for="typePasswordX">Senha</label>
+                  </div>
+
+                  <div class="form-outline form-black">
                       <div class="form-group">
                           <input
                           type="text"
                           class="form-control form-control-lg"
-                          name="email"
-                          [(ngModel)]="form.email"
+                          name="name"
+                          [(ngModel)]="form.companyName"
                           required
-                          #email="ngModel"
+                          #companyName="ngModel"
                           />
                           <div
                           class="alert alert-danger"
                           role="alert"
-                          *ngIf="email.errors && f.submitted"
+                          *ngIf="companyName.errors && f.submitted"
                           >
-                          Email is required!
+                          Empresa é requirido!
                           </div>
                       </div>
-                      <label class="form-label" for="typeEmailX">Email</label>
+                      <label class="form-label" for="typeEmailX">Empresa</label>
                   </div>
-  
-                  <div class="form-outline form-white mb-4">
-                      <!-- <input type="password" id="typePasswordX" class="form-control form-control-lg" /> -->
-                      <div class="form-group">
-                          <input
-                            type="password"
-                            class="form-control form-control-lg"
-                            name="password"
-                            [(ngModel)]="form.password"
-                            required
-                            minlength="4"
-                            #password="ngModel"
-                          />
-                          <div
-                            class="alert alert-danger"
-                            role="alert"
-                            *ngIf="password.errors && f.submitted"
-                          >
-                            <div *ngIf="password.errors?.['required']">Senha requerida</div>
-                            <div *ngIf="password.errors?.['minlength']">
-                              Senha deve conter ao menos 4 caracteres
-                            </div>
-                          </div>
+
+                  <div class="form-outline form-black">
+                    <div class="form-group">
+                        <input
+                        type="text"
+                        class="form-control form-control-lg"
+                        name="address"
+                        [(ngModel)]="form.address"
+                        required
+                        #address="ngModel"
+                        />
+                        <div
+                        class="alert alert-danger"
+                        role="alert"
+                        *ngIf="address.errors && f.submitted"
+                        >
+                        Endereço é requirido!
                         </div>
-                      <label class="form-label" for="typePasswordX">Senha</label>
+                    </div>
+                    <label class="form-label" for="typeEmailX">Endereço</label>
                   </div>
+
+                  <div class="form-outline form-black">
+                    <div class="form-group">
+                        <input
+                        type="text"
+                        class="form-control form-control-lg"
+                        name="companyCpnj"
+                        [(ngModel)]="form.companyCpnj"
+                        required
+                        #companyCpnj="ngModel"
+                        maxlength="14"
+                        />
+                        <div
+                        class="alert alert-danger"
+                        role="alert"
+                        *ngIf="companyCpnj.errors && f.submitted"
+                        >
+                        Cnpj é requirido!
+                        </div>
+                    </div>
+                    <label class="form-label" for="typeEmailX">Cnpj</label>
+                  </div>
+
+ 
+
+
   
                   <div class="form-group">
                       <button class="btn btn-outline-dark btn-lg px-5">
                         Registrar
                       </button>
-                    </div>
+                  </div>
 
               </form>
 
+              <p class="mb-0">Já possui uma conta? <a routerLink="/login" class="text-black-50 fw-bold">Login</a>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 </section>

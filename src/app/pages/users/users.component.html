@@ -1,0 +1,48 @@
+<!-- <ng-template ngbNavContent> -->
+    <h1>Usuários do Sistema</h1>
+    <dx-data-grid
+      id="gridContainer"
+      [dataSource]="users"
+      [showBorders]="true"
+      keyExpr="id"
+      (onSaved)="onSavedUser($event)"
+      (onRowRemoved)="onRemovedUser($event)"
+    >
+    <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+        
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-header-filter [visible]="true"></dxo-header-filter>
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+    <dxo-scrolling mode="virtual"></dxo-scrolling>
+  
+    <dxo-paging [enabled]="true" [pageSize]="5"> </dxo-paging>
+    <dxo-pager
+      [visible]="true"
+      [allowedPageSizes]="allowedPageSizes"
+      [displayMode]="'full'"
+      [showPageSizeSelector]="true"
+      [showInfo]="true"
+      [showNavigationButtons]="true"
+      >
+    </dxo-pager>
+    <dxo-editing
+      mode="form"
+      [allowUpdating]="true"
+      [allowDeleting]="true"
+      [useIcons]="true"
+      [allowAdding]="true"
+    ></dxo-editing>
+  
+    <dxi-column type="buttons" [width]="110">
+      <dxi-button name="edit"></dxi-button>
+      <dxi-button name="delete"></dxi-button>
+  
+    </dxi-column>
+    <!-- <dxi-column dataField="id" caption="Id"></dxi-column> -->
+    <dxi-column dataField="name" caption="Nome"></dxi-column>
+    <dxi-column dataField="email" caption="Email"></dxi-column>
+    <dxi-column dataField="role" caption="Cargo"></dxi-column>
+    
+  </dx-data-grid>
+  
+ 

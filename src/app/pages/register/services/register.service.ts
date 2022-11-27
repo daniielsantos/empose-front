@@ -19,7 +19,9 @@ export class RegisterService {
   }
 
   save(user: Users): Observable<Users> {
-    return this.httpClient.post<Users>(`${this.apiUrl}/users`, user)
+    return this.httpClient.post<Users>(`${this.apiUrl}/register`, user)
   }
+
+
 
 }

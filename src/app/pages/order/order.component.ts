@@ -1,8 +1,12 @@
 import { NgModule, Component, enableProdMode, OnInit } from '@angular/core';
 import { Orders } from 'app/shared/models/order.model';
-import { Client } from 'app/shared/models/client.model';
 import { environment } from 'environments/environment';
 import { OrderService } from './services/order.service';
+
+
+// import { exportDataGrid } from 'devextreme/excel_exporter';
+// import { Workbook } from 'exceljs';
+// import { saveAs } from 'file-saver-es';
 
 @Component({
   selector: 'app-order',
@@ -11,9 +15,8 @@ import { OrderService } from './services/order.service';
 })
 export class OrderComponent implements OnInit {
   url: string = `${environment.apiUrl}`;
-
-  orders: Orders[] = [];
   readonly allowedPageSizes = [5, 10, 'all'];
+  orders: Orders[] = [];
 
   constructor(private orderService: OrderService) { 
     this.orderService.findAll().subscribe(orders => {
@@ -25,7 +28,35 @@ export class OrderComponent implements OnInit {
   ngOnInit(): void {
   }
   
-  customizeColumns(columns: any) {
-    // columns[0].cellTemplate = 'cellTemplate';
+  onExporting(e: any) {
+    // const doc = new jsPDF();
+    // const workbook = new Workbook();
+    // const worksheet = workbook.addWorksheet('Employees');
+    // exportDataGrid({
+    //   component: e.component,
+    //   worksheet,
+    //   autoFilterEnabled: true
+    // }).then(() => {
+    //   workbook.xlsx.writeBuffer().then((buffer) => {
+    //     saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'pedidos.xlsx')
+    //   })
+    //   e.cancel = true
+    // });
+  }
+
+  orderEditing(e: any) {
+    // this.prodEditing = {}
+    // this.categoryEditing = {}
+    // this.prodSkus = []
+    // if(e.data.skus[0].id){
+    //   this.prodSkus = e.data.skus
+    //   this.prodEditing = e.data
+    //   this.categoryEditing = e.data.category
+    // }
+  }
+  cancelOrderEditing() {    
+    // this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+    //   this.router.navigate(['product']);
+    // });
   }
 }

@@ -1,0 +1,38 @@
+<!-- <ng-template ngbNavContent> -->
+    <h1>Meios de Pagamento</h1>
+    <dx-data-grid
+      id="gridContainer"
+      [dataSource]="paymentMethods"
+      [showBorders]="true"
+      keyExpr="id"
+      (onSaved)="onSavedPaymentMethod($event)"
+      (onRowRemoved)="onRemovedPaymentMethod($event)"
+    >
+    <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+        
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-header-filter [visible]="true"></dxo-header-filter>
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+    <dxo-scrolling mode="virtual"></dxo-scrolling>
+  
+    <dxo-paging [enabled]="false"></dxo-paging>
+    <dxo-editing
+      mode="form"
+      [allowUpdating]="true"
+      [allowDeleting]="true"
+      [useIcons]="true"
+      [allowAdding]="true"
+    ></dxo-editing>
+  
+    <dxi-column type="buttons" [width]="110">
+      <dxi-button name="edit"></dxi-button>
+      <dxi-button name="delete"></dxi-button>
+  
+    </dxi-column>
+    <!-- <dxi-column dataField="id" caption="Id"></dxi-column> -->
+    <dxi-column dataField="name" caption="Nome"></dxi-column>
+    <dxi-column dataField="description" caption="Descrição"></dxi-column>
+    
+  </dx-data-grid>
+  
+ 

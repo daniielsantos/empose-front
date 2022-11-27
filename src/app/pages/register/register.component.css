@@ -10,3 +10,8 @@
   
     /* background: linear-gradient(to right, rgb(50, 41, 59), rgb(9, 46, 110)) */
 }
+.container {
+    height: 100vh;
+    overflow: auto;
+    width: 100vw;
+}

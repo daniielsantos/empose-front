@@ -4,6 +4,7 @@ import themes from 'devextreme/ui/themes';
 import { Client } from 'app/shared/models/client.model';
 import { EmailSenderService } from './services/email-sender.service';
 import { EmailOptions } from 'app/shared/models/email.model';
+import notify from 'devextreme/ui/notify';
 
 @Component({
   selector: 'app-email-sender',
@@ -15,7 +16,7 @@ export class EmailSenderComponent implements OnInit {
   allMode!: string;
   checkBoxesMode!: string;
   clientSelected: Client[] = []
-
+  readonly allowedPageSizes = [5, 10, 'all'];
   valueChangeEvents: any[] = [];
   eventValue: string;
   maxLength = null;
@@ -63,7 +64,6 @@ export class EmailSenderComponent implements OnInit {
   async onSubmit() {
     console.log(this.clientSelected)
     for await (const it of this.clientSelected) {
-      console.log("it ", it.email)
       let options: EmailOptions = {
         host: "smtp.gmail.com",
         port: 587,
@@ -72,12 +72,17 @@ export class EmailSenderComponent implements OnInit {
         from: "daniielsouzapvh@gmail.com",
         to: it.email,
         template: "default",
+        params: {
+          name: '',
+          password: ''
+        },
         subject: this.subjectText,
         text: this.contentText,
         html: ""
       }
       this.emailSenderService.sendEmail(options).subscribe(res => {
         console.log("emails sent")
+        notify('Email enviado!')
       })
     }
   }

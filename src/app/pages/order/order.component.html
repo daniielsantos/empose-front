@@ -1,129 +1,121 @@
 <h1>Pedidos</h1>
+
 <dx-data-grid
-  id="gridContainer"
-  [customizeColumns]="customizeColumns"
-  [dataSource]="orders"
-  keyExpr="id"
-  [showBorders]="true"
-  [columns]="[
-  { dataField: 'id', caption: 'ID' }, 
-  { dataField: 'client.name', caption: 'Cliente' }, 
-  { dataField: 'created_at', dataType: 'date',caption: 'Data do Pedido' }, 
-  { dataField: 'status', caption: 'Status Pagamento' }, 
-  { dataField: 'delivery_status', caption: 'Status Entrega' }, 
-  { dataField: 'payment.name', caption: 'Forma de Pagamento' }, 
-  { dataField: 'total', caption: 'Valor Total' } ]"
+id="gridContainer"
+[dataSource]="orders"
+[showBorders]="true"
+keyExpr="id"
+(onExporting)="onExporting($event)"
+(onEditingStart)="orderEditing($event)"
+(onEditCanceled)="cancelOrderEditing()"
 >
-  <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
-  
-  <dxo-filter-row [visible]="true"></dxo-filter-row>
-  <dxo-header-filter [visible]="true"></dxo-header-filter>
-  <dxo-group-panel [visible]="true"></dxo-group-panel>
-  <dxo-scrolling mode="virtual"></dxo-scrolling>
+<dxo-paging [enabled]="true" [pageSize]="10"> </dxo-paging>
+<dxo-pager
+  [visible]="true"
+  [allowedPageSizes]="allowedPageSizes"
+  [displayMode]="'full'"
+  [showPageSizeSelector]="true"
+  [showInfo]="true"
+  [showNavigationButtons]="true"
+>
+</dxo-pager>
 
-  <dxo-editing
-    mode="row"
-    [allowDeleting]="true"
-    [useIcons]="true"
-  ></dxo-editing>
+<dxo-editing
+mode="form"
+[allowUpdating]="true"
+[useIcons]="true"
+>
+<dxo-form
+>
 
-  <dxo-paging [pageSize]="10"> </dxo-paging>
-  <dxo-pager
-    [visible]="true"
-    [allowedPageSizes]="allowedPageSizes"
-    [displayMode]="'full'"
-    [showPageSizeSelector]="true"
-    [showInfo]="true"
-    [showNavigationButtons]="true"
+  <dxi-item itemType="group" caption="Pedido" name="prodEdit">
+      <!-- <dxi-item dataField="name"></dxi-item>
+      <dxi-item dataField="description"></dxi-item>
+      <dxi-item dataField="discount" ></dxi-item> -->
+      <!-- <dxi-item
+        name="catName"
+        dataField="Categoria"
+        editorType="dxSelectBox"
+        [editorOptions]="{dataSource: categories, placeholder: categoryEditing.name, onSelectionChanged: onSelectionChanged, valueExpr:'id', displayExpr: 'name'}"
+        >
+      </dxi-item>  -->
+      <dxi-item dataField="status" [allowEditing]="false"></dxi-item>
+  </dxi-item>
+  <dxi-item itemType="group" caption="Skus" name="skus-container">
+
+
+
+    <!-- <dx-data-grid
+    id="gridContainerPro"
+    keyExpr="id"
+    [dataSource]="prodSkus"
+    [showBorders]="true"
+    (onRowRemoved)="deleteRow()"
   >
-  </dxo-pager>
+    <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-header-filter [visible]="true"></dxo-header-filter>
+    <dxo-scrolling mode="virtual"></dxo-scrolling>
+    <dxo-paging [enabled]="false"></dxo-paging>
+    <dxo-editing
+      [allowDeleting]="true"
+      [allowUpdating]="true"
+      [allowAdding]="true"
+      [useIcons]="true"
+      mode="popup"
+    >
+    </dxo-editing>
+    <dxi-column type="buttons" [width]="90">
+    <dxi-button name="delete"></dxi-button>
+    <dxi-button name="adding"></dxi-button>
+    </dxi-column>
 
-  <div *dxTemplate="let order of 'detail'">
-    <detail-grid [key]="order.key"></detail-grid>
-  </div>
-  <dxo-summary>
-    <dxi-total-item column="Freight" summaryType="sum">
-      <dxo-value-format type="decimal" [precision]="2"></dxo-value-format>
-    </dxi-total-item>
-    <dxi-group-item column="Freight" summaryType="sum">
-      <dxo-value-format type="decimal" [precision]="2"></dxo-value-format>
-    </dxi-group-item>
-    <dxi-group-item summaryType="count"> </dxi-group-item>
-  </dxo-summary>
+    <dxi-column 
+      name="droplol" 
+      dataField="description" 
+      caption="Skus" 
+      [setCellValue]="setCellValue"
+      (selectedFilterOperationChange)="onEditorPreparing($event)"
+    >
+      <dxo-lookup
+        [dataSource]="sku" 
+        valueExpr="id"
+        displayExpr="name" 
+      >
+      </dxo-lookup>                
+    </dxi-column>
+
+    <dxi-column dataField="id" allowEditing="false"></dxi-column>
+    <dxi-column dataField="name" allowEditing="false"></dxi-column>
+    <dxi-column dataField="description" allowEditing="false"></dxi-column>
+
+    </dx-data-grid> -->
+
+  </dxi-item>
+
+</dxo-form>
+</dxo-editing>
+
+<dxi-column type="buttons" [width]="110">
+<dxi-button name="edit"></dxi-button>
+<dxi-button name="delete"></dxi-button>
+</dxi-column>
+
+<dxi-column dataField="id" [width]="70" caption="Id"></dxi-column>
+<dxi-column dataField="client.name" caption="Cliente"></dxi-column>
+<dxi-column dataField="status" caption="Status"></dxi-column>
+<dxi-column dataField="delivery_status" caption="Status Entrega"></dxi-column>
+<dxi-column dataField="total" caption="Total"></dxi-column>
+
+<!-- <dxi-column dataField="category.name" name="categoDetais" caption="Categoria" [width]="125">
+</dxi-column>           -->
+<dxi-column dataField="created_at" caption="Data Criação" dataType="date"></dxi-column>
+
+<!-- <dxo-export [enabled]="true" [allowExportSelectedData]="true"></dxo-export> -->
+
+
 </dx-data-grid>
 
-<!-- <dx-data-grid
-  [dataSource]="dataSource"
-  [remoteOperations]="true"
-  [height]="600"
-  [showBorders]="true"
->
-  <dxo-filter-row [visible]="true"></dxo-filter-row>
-  <dxo-header-filter [visible]="true"></dxo-header-filter>
-  <dxo-group-panel [visible]="true"></dxo-group-panel>
-  <dxo-scrolling mode="virtual"></dxo-scrolling>
-  <dxo-editing
-    mode="row"
-    [allowAdding]="true"
-    [allowUpdating]="true"
-    [allowDeleting]="true"
-  >
-  </dxo-editing>
-  <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
-  <dxo-master-detail [enabled]="true" template="detail"></dxo-master-detail>
-  <dxi-column dataField="client.id" caption="Customer">
-    <dxi-validation-rule
-      type="stringLength"
-      [max]="5"
-      message="The field Customer must be a string with a maximum length of 5."
-    ></dxi-validation-rule>
-    <dxo-lookup
-      [dataSource]="customersData.client"
-      valueExpr="id"
-      displayExpr="name"
-    ></dxo-lookup>
-  </dxi-column>
-  <dxi-column dataField="OrderDate" dataType="date">
-    <dxi-validation-rule
-      type="required"
-      message="The OrderDate field is required."
-    ></dxi-validation-rule>
-  </dxi-column>
-  <dxi-column dataField="Freight">
-    <dxo-header-filter groupInterval="100"></dxo-header-filter>
-    <dxi-validation-rule
-      type="range"
-      [min]="0"
-      [max]="2000"
-      message="The field Freight must be between 0 and 2000."
-    >
-    </dxi-validation-rule>
-  </dxi-column>
-  <dxi-column dataField="ShipCountry">
-    <dxi-validation-rule
-      type="stringLength"
-      [max]="15"
-      message="The field ShipCountry must be a string with a maximum length of 15."
-    ></dxi-validation-rule>
-  </dxi-column>
-  <dxi-column dataField="ShipVia" caption="Shipping Company" dataType="number">
-    <dxo-lookup
-      [dataSource]="shippersData"
-      valueExpr="Value"
-      displayExpr="Text"
-    ></dxo-lookup>
-  </dxi-column>
-
-  <div *dxTemplate="let order of 'detail'">
-    <detail-grid [key]="order.key"></detail-grid>
-  </div>
-  <dxo-summary>
-    <dxi-total-item column="Freight" summaryType="sum">
-      <dxo-value-format type="decimal" [precision]="2"></dxo-value-format>
-    </dxi-total-item>
-    <dxi-group-item column="Freight" summaryType="sum">
-      <dxo-value-format type="decimal" [precision]="2"></dxo-value-format>
-    </dxi-group-item>
-    <dxi-group-item summaryType="count"> </dxi-group-item>
-  </dxo-summary>
-</dx-data-grid> -->
+<!-- <dxo-lookup [dataSource]="categories" displayExpr="name" valueExpr="id">
+</dxo-lookup> -->
+    <!-- <dx-select-box name="skuList" [dataSource]="sku" valueExpr="id" displayExpr="name" (onSelectionChanged)="onSelectionChangedSkus($event)"></dx-select-box> -->

@@ -1,0 +1,27 @@
+<dx-data-grid
+    id="gridContainerInv"
+    [dataSource]="inventory"
+    [showBorders]="true"
+    keyExpr="id"
+    (onRowUpdated)="onUpdatedInventory($event)"
+>
+    <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+        
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-header-filter [visible]="true"></dxo-header-filter>
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+    <dxo-scrolling mode="virtual"></dxo-scrolling>
+
+    <dxo-paging [enabled]="false"></dxo-paging>
+    <dxo-editing
+    mode="row"
+    [allowUpdating]="true"
+    [useIcons]="true"
+    ></dxo-editing>
+
+    <dxi-column type="buttons" [width]="110">
+    <dxi-button name="edit"></dxi-button>
+    </dxi-column>
+    <dxi-column dataField="sku_id" caption="Id Sku" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="quantity" caption="Quantidade"></dxi-column>
+</dx-data-grid>

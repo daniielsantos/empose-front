@@ -1,1 +1,11 @@
-<p>Dashboards</p>
+
+<dx-chart class="vw-30" id="chart" [dataSource]="totalByMonth">
+    <dxi-series
+        argumentField="name"
+        valueField="total"
+        name="Faturamento"
+        type="bar"
+        color="#ffaa66"
+    >
+    </dxi-series>
+</dx-chart>

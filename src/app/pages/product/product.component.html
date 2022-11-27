@@ -13,9 +13,18 @@
           (onSaved)="onSavedProduct($event)"
           (onEditingStart)="productEditing($event)"
           (onEditCanceled)="cancelProducEditing()"
+          (onRowRemoved)="deleteProduct($event)"
         >
-        <dxo-paging [enabled]="false"></dxo-paging>
-
+        <dxo-paging [enabled]="true" [pageSize]="10"> </dxo-paging>
+        <dxo-pager
+          [visible]="true"
+          [allowedPageSizes]="allowedPageSizes"
+          [displayMode]="'full'"
+          [showPageSizeSelector]="true"
+          [showInfo]="true"
+          [showNavigationButtons]="true"
+          >
+        </dxo-pager>
         <dxo-editing
           mode="form"
           [allowUpdating]="true"
@@ -25,8 +34,7 @@
           
         >
         <!-- edit -->
-        <dxo-form
-        >
+        <dxo-form>
         
             <dxi-item itemType="group" caption="Produto" name="prodEdit">
                 <dxi-item dataField="name"></dxi-item>
@@ -34,9 +42,10 @@
                 <dxi-item dataField="discount" ></dxi-item>
                 <dxi-item
                   name="catName"
+                  isRequired="true"
                   dataField="Categoria"
                   editorType="dxSelectBox"
-                  [editorOptions]="{dataSource: categories, placeholder: categoryEditing.name, onSelectionChanged: onSelectionChanged, valueExpr:'id', displayExpr: 'name'}"
+                  [editorOptions]="{dataSource: categories, value: getValue(), onSelectionChanged: onSelectionChanged, valueExpr:'id', displayExpr: 'name'}"
                   >
                 </dxi-item> 
                 <dxi-item dataField="active" dataType="boolean" type="boolean"></dxi-item>
@@ -44,14 +53,11 @@
 <!-- ---------------------------GRID------------------------------- -->
             <dxi-item itemType="group" caption="Skus" name="skus-container">
         
-              <!-- <dx-select-box name="skuList" [dataSource]="sku" valueExpr="id" displayExpr="name" (onSelectionChanged)="onSelectionChangedSkus($event)"></dx-select-box> -->
-
               <dx-data-grid
               id="gridContainerPro"
               keyExpr="id"
               [dataSource]="prodSkus"
-              [showBorders]="true"
-              (onRowRemoved)="deleteRow()"
+              [showBorders]="true"              
             >
               <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
               <dxo-filter-row [visible]="true"></dxo-filter-row>
@@ -63,15 +69,16 @@
                 [allowUpdating]="true"
                 [allowAdding]="true"
                 [useIcons]="true"
-                mode="popup"
+                mode="row"
               >
               </dxo-editing>
               <dxi-column type="buttons" [width]="90">
               <dxi-button name="delete"></dxi-button>
               <dxi-button name="adding"></dxi-button>
+              <dxi-button name="edit"></dxi-button>
               </dxi-column>
 
-              <dxi-column 
+              <!-- <dxi-column 
                 name="droplol" 
                 dataField="description" 
                 caption="Skus" 
@@ -84,16 +91,14 @@
                   displayExpr="name" 
                 >
                 </dxo-lookup>                
-              </dxi-column>
+              </dxi-column> -->
 
-              <dxi-column dataField="id" allowEditing="false"></dxi-column>
-              <dxi-column dataField="name" allowEditing="false"></dxi-column>
-              <dxi-column dataField="description" allowEditing="false"></dxi-column>
-              <!-- <dxi-column dataField="price" allowEditing="false"></dxi-column> -->
-              <!-- <dxi-column dataField="active" dataType="boolean"></dxi-column>  -->
-
+              <dxi-column dataField="id" [allowEditing]="false"></dxi-column>
+              <dxi-column dataField="name" caption="Nome"></dxi-column>
+              <dxi-column dataField="description" caption="Descrição"></dxi-column>
+              <dxi-column dataField="price" caption="Preço"></dxi-column>
+              <dxi-column dataField="active" caption="Ativo" dataType="boolean"></dxi-column>
               </dx-data-grid>
-
             </dxi-item>
 
         </dxo-form>
@@ -108,11 +113,7 @@
         <dxi-column dataField="name" caption="Nome"></dxi-column>
         <dxi-column dataField="description" caption="Descrição"></dxi-column>
         <dxi-column dataField="discount" caption="Desconto"></dxi-column>
-          
-        <dxi-column dataField="category.name" name="categoDetais" caption="Categoria" [width]="125">
-          <!-- <dxo-lookup [dataSource]="categories" displayExpr="name" valueExpr="id">
-          </dxo-lookup> -->
-        </dxi-column>          
+        <dxi-column dataField="category.name" name="categoDetais" caption="Categoria" [width]="125"></dxi-column>          
         <dxi-column dataField="active" caption="Ativo" dataType="boolean"></dxi-column>
         <dxi-column dataField="created_at" caption="Data Criação" dataType="date"></dxi-column>
  
@@ -120,151 +121,30 @@
 
 
     </dx-data-grid>
-
-
-
-
-      </ng-template>
-  </li>
-  <li [ngbNavItem]="2">
-    <a ngbNavLink>SKU</a>
-    <ng-template ngbNavContent>
-      
-      <dx-data-grid
-      id="gridContainerSku"
-      [dataSource]="sku"
-      [showBorders]="true"
-      keyExpr="id"
-      (onSaved)="onSavedSku($event)"
-    >
-      <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
-          
-      <dxo-filter-row [visible]="true"></dxo-filter-row>
-      <dxo-header-filter [visible]="true"></dxo-header-filter>
-      <dxo-group-panel [visible]="true"></dxo-group-panel>
-      <dxo-scrolling mode="virtual"></dxo-scrolling>
-
-      <dxo-paging [enabled]="false"></dxo-paging>
-      <dxo-editing
-        mode="row"
-        [allowUpdating]="true"
-        [allowDeleting]="true"
-        [useIcons]="true"
-        [allowAdding]="true"
-      ></dxo-editing>
-    
-      <dxi-column type="buttons" [width]="110">
-        <dxi-button name="edit"></dxi-button>
-        <dxi-button name="delete"></dxi-button>
-
-      </dxi-column>
-      <!-- combo box carregado -->
-      <!-- <dxi-column dataField="product.name" [width]="125" caption="Produto">
-        <dxo-lookup
-          [dataSource]="products"
-          displayExpr="name"
-          valueExpr="name"
-        ></dxo-lookup>
-      </dxi-column> -->
-
-      <dxi-column dataField="name" caption="Sku Nome"></dxi-column>
-      <dxi-column dataField="description" caption="Sku Desc."></dxi-column>
-      <dxi-column dataField="active" caption="Ativo"></dxi-column>
-      <dxi-column dataField="price" caption="Preço" [allowAdding]="true"></dxi-column>
-    </dx-data-grid>
-
     </ng-template>
   </li>
 
+  <li [ngbNavItem]="2">
+    <a ngbNavLink>SKU</a>
+    <ng-template ngbNavContent>
+      <app-sku></app-sku>
+    </ng-template>
+  </li>
 
   <li [ngbNavItem]="3">
     <a ngbNavLink>Categoria</a>
     <ng-template ngbNavContent>
-      
-      <dx-data-grid
-      id="gridContainerCat"
-      [dataSource]="categories"
-      [showBorders]="true"
-      keyExpr="id"
-      (onSaved)="onSavedCategory($event)"
-      (onRowRemoved)="onRemovedCategory($event)"
-    >
-      <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
-          
-      <dxo-filter-row [visible]="true"></dxo-filter-row>
-      <dxo-header-filter [visible]="true"></dxo-header-filter>
-      <dxo-group-panel [visible]="true"></dxo-group-panel>
-      <dxo-scrolling mode="virtual"></dxo-scrolling>
-
-      <dxo-paging [enabled]="false"></dxo-paging>
-      <dxo-editing
-        mode="row"
-        [allowUpdating]="true"
-        [allowDeleting]="true"
-        [useIcons]="true"
-        [allowAdding]="true"
-      ></dxo-editing>
-    
-      <dxi-column type="buttons" [width]="110">
-        <dxi-button name="edit"></dxi-button>
-        <dxi-button name="delete"></dxi-button>
-        <!-- <dxi-button
-          hint="Clone"
-          icon="copy"
-          [visible]="true"
-          [disabled]="false"
-          
-        ></dxi-button> -->
-      </dxi-column>
-      <dxi-column dataField="id" caption="id" [allowEditing]="false"></dxi-column>
-      <dxi-column dataField="name" caption="Nome"></dxi-column>
-      <dxi-column dataField="description" caption="Descrição"></dxi-column>
-    </dx-data-grid>
-
+      <app-category></app-category>
     </ng-template>
   </li>
 
   <li [ngbNavItem]="4">
     <a ngbNavLink>Inventário</a>
     <ng-template ngbNavContent>
-      
-      <dx-data-grid
-      id="gridContainerInv"
-      [dataSource]="inventory"
-      [showBorders]="true"
-      keyExpr="id"
-      (onRowUpdated)="onUpdatedInventory($event)"
-    >
-      <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
-          
-      <dxo-filter-row [visible]="true"></dxo-filter-row>
-      <dxo-header-filter [visible]="true"></dxo-header-filter>
-      <dxo-group-panel [visible]="true"></dxo-group-panel>
-      <dxo-scrolling mode="virtual"></dxo-scrolling>
-
-      <dxo-paging [enabled]="false"></dxo-paging>
-      <dxo-editing
-        mode="row"
-        [allowUpdating]="true"
-        [useIcons]="true"
-      ></dxo-editing>
-    
-      <dxi-column type="buttons" [width]="110">
-        <dxi-button name="edit"></dxi-button>
-      </dxi-column>
-      <dxi-column dataField="sku_id" caption="Id Sku" [allowEditing]="false"></dxi-column>
-      <dxi-column dataField="quantity" caption="Quantidade"></dxi-column>
-    </dx-data-grid>
-      
-
+      <app-inventory></app-inventory>
     </ng-template>
   </li>
 </ul>
 
 <div [ngbNavOutlet]="nav" class="mt-2"></div>
-
-<!-- <pre>Active: {{ active }}</pre> -->
-
-
-
 

@@ -26,4 +26,8 @@ export class SkuService {
   update(sku: Sku): Observable<Sku> {
     return this.httpClient.put<Sku>(`${this.apiUrl}/sku`, sku)
   }
+
+  remove(sku: Sku): Observable<Sku> {
+    return this.httpClient.delete<Sku>(`${this.apiUrl}/sku`, {body: sku})
+  }
 }

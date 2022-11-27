@@ -20,7 +20,6 @@ export class ClientComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log("this.clients ", this.clients)
   }
 
   customizeColumns(columns: any) {
@@ -30,7 +29,6 @@ export class ClientComponent implements OnInit {
   onSavedClient(data: any) {
     console.log("data ", data)
     if(data.changes[0] && data.changes[0].type == "update") {
-      console.log("entrou update ", data)
       if(data.changes[0].data["address"]) {
         let cli = this.clients.find(x => x.id == data.changes[0].data["id"]) || {}
         let addr: Address = {}
@@ -69,7 +67,6 @@ export class ClientComponent implements OnInit {
   }
 
   onRemovedClient(data: any) {
-    console.log('removed ', data)
     this.clientService.delete(data.data).subscribe(client => {
       console.log("Client deleted successfully ",client);
     })

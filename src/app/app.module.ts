@@ -18,7 +18,7 @@ import { ProductComponent } from './pages/product/product.component';
 import { DocumentationComponent } from './pages/documentation/documentation.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { EmailSenderComponent } from './pages/email-sender/email-sender.component';
-import { DxDataGridModule, DxScrollViewModule, DxButtonModule, DxListModule, DxCheckBoxModule, DxSelectBoxModule, DxTextBoxModule, DxFileUploaderModule, DxTextAreaModule, DxTreeListModule, DxTemplateModule, DxFormModule } from 'devextreme-angular';
+import { DxDataGridModule, DxScrollViewModule, DxButtonModule, DxListModule, DxCheckBoxModule, DxSelectBoxModule, DxTextBoxModule, DxFileUploaderModule, DxTextAreaModule, DxTreeListModule, DxTemplateModule, DxFormModule, DxNumberBoxModule, DxChartModule } from 'devextreme-angular';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -27,6 +27,11 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/login/login.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { FileUploadComponent } from './pages/file-upload/file-upload.component';
+import { SkuComponent } from './pages/product/components/sku/sku.component';
+import { CategoryComponent } from './pages/product/components/category/category.component';
+import { InventoryComponent } from './pages/product/components/inventory/inventory.component';
+import { PaymentMethodComponent } from './pages/payment-method/payment-method.component';
+import { UsersComponent } from './pages/users/users.component';
 
 
 @NgModule({
@@ -45,7 +50,12 @@ import { FileUploadComponent } from './pages/file-upload/file-upload.component';
     EmailSenderComponent,
     RegisterComponent,
     LoginComponent,
-    FileUploadComponent    
+    FileUploadComponent,
+    SkuComponent,
+    CategoryComponent,
+    InventoryComponent,
+    PaymentMethodComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +80,9 @@ import { FileUploadComponent } from './pages/file-upload/file-upload.component';
     DxTextAreaModule,
     DxTreeListModule,
     DxTemplateModule,
-    DxFormModule
+    DxFormModule,
+    DxNumberBoxModule,
+    DxChartModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
