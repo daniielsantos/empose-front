@@ -32,6 +32,7 @@ import { CategoryComponent } from './pages/product/components/category/category.
 import { InventoryComponent } from './pages/product/components/inventory/inventory.component';
 import { PaymentMethodComponent } from './pages/payment-method/payment-method.component';
 import { UsersComponent } from './pages/users/users.component';
+import { PasswordRecoveryComponent } from './pages/password-recovery/password-recovery.component';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { UsersComponent } from './pages/users/users.component';
     CategoryComponent,
     InventoryComponent,
     PaymentMethodComponent,
-    UsersComponent
+    UsersComponent,
+    PasswordRecoveryComponent
   ],
   imports: [
     BrowserModule,

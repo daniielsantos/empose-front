@@ -10,6 +10,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { OrderComponent } from './pages/order/order.component';
+import { PasswordRecoveryComponent } from './pages/password-recovery/password-recovery.component';
 import { PaymentMethodComponent } from './pages/payment-method/payment-method.component';
 import { ProductComponent } from './pages/product/product.component';
 import { RegisterComponent } from './pages/register/register.component';
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'recovery',
+    component: PasswordRecoveryComponent
   },
   {
     path: '',
