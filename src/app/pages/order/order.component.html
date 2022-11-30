@@ -40,6 +40,11 @@ mode="form"
         >
       </dxi-item>  -->
       <dxi-item dataField="status" [allowEditing]="false"></dxi-item>
+      <dxi-item dataField="delivery_status" caption="opaaaaa" [width]="125">
+        <dxo-lookup [dataSource]="statusEnum" displayExpr="idd" valueExpr="names">
+        </dxo-lookup>
+      </dxi-item>
+      <dxi-item dataField="canceled" ></dxi-item>
   </dxi-item>
   <dxi-item itemType="group" caption="Skus" name="skus-container">
 
@@ -103,13 +108,17 @@ mode="form"
 
 <dxi-column dataField="id" [width]="70" caption="Id"></dxi-column>
 <dxi-column dataField="client.name" caption="Cliente"></dxi-column>
-<dxi-column dataField="status" caption="Status"></dxi-column>
-<dxi-column dataField="delivery_status" caption="Status Entrega"></dxi-column>
+<dxi-column dataField="status" caption="Status Pagamento" [width]="230"></dxi-column>
+<dxi-column dataField="delivery_status" caption="Status Entrega">
+    <dxo-lookup [dataSource]="statusEnum" displayExpr="name" valueExpr="id">
+    </dxo-lookup>
+</dxi-column>
 <dxi-column dataField="total" caption="Total"></dxi-column>
 
 <!-- <dxi-column dataField="category.name" name="categoDetais" caption="Categoria" [width]="125">
 </dxi-column>           -->
 <dxi-column dataField="created_at" caption="Data Criação" dataType="date"></dxi-column>
+<dxi-column dataField="canceled" caption="Cancelada" [width]="100"></dxi-column>
 
 <!-- <dxo-export [enabled]="true" [allowExportSelectedData]="true"></dxo-export> -->
 

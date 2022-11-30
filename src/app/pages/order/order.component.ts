@@ -17,10 +17,21 @@ export class OrderComponent implements OnInit {
   url: string = `${environment.apiUrl}`;
   readonly allowedPageSizes = [5, 10, 'all'];
   orders: Orders[] = [];
+  statusEnum = [
+    {
+      id: 1,
+      name: 'AGUARDANDO',
+    },
+    {
+      id: 2,
+      name: 'ENVIADO',
+    }
+  ]
 
   constructor(private orderService: OrderService) { 
     this.orderService.findAll().subscribe(orders => {
       this.orders = orders;
+      this.orders[4].delivery_status = 1
       console.log(orders);
     });
   }

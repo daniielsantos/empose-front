@@ -21,7 +21,7 @@ export class Orders {
       public id?: number,
       public total?: number,
       public status?: string,
-      public delivery_status?: string,
+      public delivery_status?: number,
       public payment?: PaymentMethods,
       public client?: Client,
       public items?: OrderItem[],
