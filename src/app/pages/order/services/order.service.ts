@@ -17,5 +17,9 @@ export class OrderService {
   findAll(): Observable<Orders[]> {
     return this.httpClient.get<Orders[]>(`${this.apiUrl}/order`)
   }
+
+  update(order: Orders): Observable<Orders> {
+    return this.httpClient.put<Orders>(`${this.apiUrl}/order`, order)
+  }
   
 }

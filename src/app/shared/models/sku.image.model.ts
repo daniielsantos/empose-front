@@ -1,4 +1,4 @@
-import { Company } from "./company.model";
+import { Store } from "./store.model";
 
 export class SkuImage {
     constructor(

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Company } from 'app/shared/models/company.model';
+import { Store } from 'app/shared/models/store.model';
 import { Users } from 'app/shared/models/users.model';
 import { RegisterService } from './services/register.service';
 
@@ -23,8 +23,8 @@ export class RegisterComponent implements OnInit {
     name: null,
     email: null,
     password: null,
-    companyName: null,
-    companyCpnj: null,
+    storeName: null,
+    storeCpnj: null,
     address: null,    
   };
   isSuccessful = false;
@@ -37,18 +37,18 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const { name, email, password, companyName, companyCpnj, address } = this.form;
-    const userCompany: Company = {
-      name: companyName,
+    const { name, email, password, storeName, storeCpnj, address } = this.form;
+    const userStore: Store = {
+      name: storeName,
       address: address,
-      cnpj: companyCpnj,
+      cnpj: storeCpnj,
       email: email,
     }
     const userRegister: Users = {
       name: name,
       email: email,
       password: password,
-      company: userCompany
+      store: userStore
     }
     this.registeService.save(userRegister).subscribe(
       data => {

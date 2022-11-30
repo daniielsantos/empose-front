@@ -87,14 +87,14 @@
                           type="text"
                           class="form-control form-control-lg"
                           name="name"
-                          [(ngModel)]="form.companyName"
+                          [(ngModel)]="form.storeName"
                           required
-                          #companyName="ngModel"
+                          #storeName="ngModel"
                           />
                           <div
                           class="alert alert-danger"
                           role="alert"
-                          *ngIf="companyName.errors && f.submitted"
+                          *ngIf="storeName.errors && f.submitted"
                           >
                           Empresa é requirido!
                           </div>
@@ -128,16 +128,16 @@
                         <input
                         type="text"
                         class="form-control form-control-lg"
-                        name="companyCpnj"
-                        [(ngModel)]="form.companyCpnj"
+                        name="storeCpnj"
+                        [(ngModel)]="form.storeCpnj"
                         required
-                        #companyCpnj="ngModel"
+                        #storeCpnj="ngModel"
                         maxlength="14"
                         />
                         <div
                         class="alert alert-danger"
                         role="alert"
-                        *ngIf="companyCpnj.errors && f.submitted"
+                        *ngIf="storeCpnj.errors && f.submitted"
                         >
                         Cnpj é requirido!
                         </div>

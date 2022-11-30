@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Company } from 'app/shared/models/company.model';
+import { Store } from 'app/shared/models/store.model';
 import { Users } from 'app/shared/models/users.model';
 import notify from 'devextreme/ui/notify';
 import { RegisterService } from '../register/services/register.service';

@@ -37,30 +37,29 @@ export class ProductComponent implements AfterViewInit {
   readonly allowedPageSizes = [5, 10, 'all'];
   prodEditing!: Product 
   
-  categoryEditing: Category = {}
+  // categoryEditing: Category = {}
   selectedCategoryId: any = {}
 
 
   constructor(
     private productService: ProductService, 
     private router: Router,
-    
     private categoryService: CategoryService
       
     ) { 
 
   }
   ngAfterViewInit(): void {
-    this.productService.findAll().subscribe(products => {
-      this.products = products;
-    })
-
-
-
     this.categoryService.findAll().subscribe(categories => {
       this.categ = categories
       this.categories = categories
     })
+    this.productService.findAll().subscribe(products => {
+      console.log("prod ", products)
+      this.products = products;
+    })
+
+
 
   }
 
@@ -68,24 +67,24 @@ export class ProductComponent implements AfterViewInit {
 
   };
 
-  setCellValue = (rowData: any, value: any) => {
-    const sku = this.sku.find(s => s.id == value)
-    rowData.description = sku!.description;
-    rowData.name = sku!.name;
-    rowData.price = sku!.price;
-    rowData.id = sku!.id;
-  };
+  // setCellValue = (rowData: any, value: any) => {
+  //   const sku = this.sku.find(s => s.id == value)
+  //   rowData.description = sku!.description;
+  //   rowData.name = sku!.name;
+  //   rowData.price = sku!.price;
+  //   rowData.id = sku!.id;
+  // };
 
 
 
   productEditing(e: any) {
     this.prodEditing = {}
-    this.categoryEditing = {}
+    // this.categoryEditing = {}
     this.prodSkus = []
     if(e.data.skus[0].id){
       this.prodSkus = e.data.skus
       this.prodEditing = e.data
-      this.categoryEditing = e.data.category
+      // this.categoryEditing = e.data.category
     }
   }
 
@@ -117,14 +116,15 @@ export class ProductComponent implements AfterViewInit {
   }
 
   onSavedProduct(data: any) {
+    console.log('data ', data)
     this.selectedCategoryId = localStorage.getItem('selectedCategory')
-
     if(data.changes.length && this.prodEditing)
       this.prodEditing = data.changes[0].data
     if(this.selectedCategoryId && this.prodEditing) {
       this.prodEditing.category!.id = parseInt(this.selectedCategoryId)
     }
     if(this.prodEditing) {
+      console.log("product editing ", this.prodEditing)
       this.productService.update(this.prodEditing).subscribe(product => {
         this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
           this.router.navigate(['product']);
@@ -133,6 +133,7 @@ export class ProductComponent implements AfterViewInit {
     }
 
     if(data.changes.length && data.changes[0].type == "insert") {
+      console.log("entrou insert ", data.changes[0])
       let category: Category = {
         id: parseInt(this.selectedCategoryId)
       }
@@ -153,9 +154,9 @@ export class ProductComponent implements AfterViewInit {
     localStorage.removeItem('selectedCategory')
   }
 
-  getValue() {
-    return this.categoryEditing.id
-  }
+  // getValue() {
+  //   return this.categoryEditing.id
+  // }
 
 
   onSelectionChanged(e: any) {

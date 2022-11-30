@@ -8,6 +8,7 @@ keyExpr="id"
 (onExporting)="onExporting($event)"
 (onEditingStart)="orderEditing($event)"
 (onEditCanceled)="cancelOrderEditing()"
+(onSaved)="saveOrder($event)"
 >
 <dxo-paging [enabled]="true" [pageSize]="5"> </dxo-paging>
 <dxo-pager
@@ -39,23 +40,27 @@ mode="form"
         [editorOptions]="{dataSource: categories, placeholder: categoryEditing.name, onSelectionChanged: onSelectionChanged, valueExpr:'id', displayExpr: 'name'}"
         >
       </dxi-item>  -->
-      <dxi-item dataField="status" [allowEditing]="false"></dxi-item>
-      <dxi-item dataField="delivery_status" caption="opaaaaa" [width]="125">
-        <dxo-lookup [dataSource]="statusEnum" displayExpr="idd" valueExpr="names">
+      <dxi-item dataField="status" [allowEditing]="false">
+        <dxo-lookup [dataSource]="deviveryStatusEnum" displayExpr="name" valueExpr="id">
         </dxo-lookup>
       </dxi-item>
-      <dxi-item dataField="canceled" ></dxi-item>
+
+      <dxi-item dataField="delivery_status" caption="opaaaaa" [width]="125">
+        <dxo-lookup [dataSource]="statusEnum" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+      </dxi-item>
+
+      <dxi-item dataField="canceled" caption="Cancelar"></dxi-item>
   </dxi-item>
-  <dxi-item itemType="group" caption="Skus" name="skus-container">
+  <dxi-item itemType="group" caption="Items" name="items-container">
 
 
-
-    <!-- <dx-data-grid
+    <dx-data-grid
     id="gridContainerPro"
     keyExpr="id"
-    [dataSource]="prodSkus"
+    [dataSource]="orderItems"
     [showBorders]="true"
-    (onRowRemoved)="deleteRow()"
+    (onRowRemoved)="deleteItemRow()"
   >
     <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
     <dxo-filter-row [visible]="true"></dxo-filter-row>
@@ -75,7 +80,7 @@ mode="form"
     <dxi-button name="adding"></dxi-button>
     </dxi-column>
 
-    <dxi-column 
+    <!-- <dxi-column 
       name="droplol" 
       dataField="description" 
       caption="Skus" 
@@ -88,13 +93,14 @@ mode="form"
         displayExpr="name" 
       >
       </dxo-lookup>                
-    </dxi-column>
+    </dxi-column> -->
 
     <dxi-column dataField="id" allowEditing="false"></dxi-column>
-    <dxi-column dataField="name" allowEditing="false"></dxi-column>
-    <dxi-column dataField="description" allowEditing="false"></dxi-column>
+    <dxi-column dataField="name" caption="Nome" allowEditing="false"></dxi-column>
+    <dxi-column dataField="description" caption="Descrição" allowEditing="false"></dxi-column>
+    <dxi-column dataField="quantity" caption="Quantidade" allowEditing="false"></dxi-column>
 
-    </dx-data-grid> -->
+    </dx-data-grid>
 
   </dxi-item>
 
@@ -108,7 +114,10 @@ mode="form"
 
 <dxi-column dataField="id" [width]="70" caption="Id"></dxi-column>
 <dxi-column dataField="client.name" caption="Cliente"></dxi-column>
-<dxi-column dataField="status" caption="Status Pagamento" [width]="230"></dxi-column>
+<dxi-column dataField="status" caption="Status Pagamento" [width]="230">
+  <dxo-lookup [dataSource]="deviveryStatusEnum" displayExpr="name" valueExpr="id">
+  </dxo-lookup>
+</dxi-column>
 <dxi-column dataField="delivery_status" caption="Status Entrega">
     <dxo-lookup [dataSource]="statusEnum" displayExpr="name" valueExpr="id">
     </dxo-lookup>
@@ -124,7 +133,3 @@ mode="form"
 
 
 </dx-data-grid>
-
-<!-- <dxo-lookup [dataSource]="categories" displayExpr="name" valueExpr="id">
-</dxo-lookup> -->
-    <!-- <dx-select-box name="skuList" [dataSource]="sku" valueExpr="id" displayExpr="name" (onSelectionChanged)="onSelectionChangedSkus($event)"></dx-select-box> -->

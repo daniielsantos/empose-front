@@ -40,14 +40,19 @@
                 <dxi-item dataField="name"></dxi-item>
                 <dxi-item dataField="description"></dxi-item>
                 <dxi-item dataField="discount" ></dxi-item>
-                <dxi-item
+                <!-- <dxi-item
                   name="catName"
                   isRequired="true"
                   dataField="Categoria"
                   editorType="dxSelectBox"
                   [editorOptions]="{dataSource: categories, value: getValue(), onSelectionChanged: onSelectionChanged, valueExpr:'id', displayExpr: 'name'}"
                   >
-                </dxi-item> 
+                </dxi-item> -->
+                <dxi-item dataField="category.id" [allowEditing]="false">
+                  <dxo-lookup [dataSource]="categories" displayExpr="name" valueExpr="id">
+                  </dxo-lookup>
+                </dxi-item>
+                <!-- PAREI AQUI -->
                 <dxi-item dataField="active" dataType="boolean" type="boolean"></dxi-item>
             </dxi-item>
 <!-- ---------------------------GRID------------------------------- -->
@@ -93,7 +98,7 @@
                 </dxo-lookup>                
               </dxi-column> -->
 
-              <dxi-column dataField="id" [allowEditing]="false"></dxi-column>
+              <!-- <dxi-column dataField="id" [allowEditing]="false"></dxi-column> -->
               <dxi-column dataField="name" caption="Nome"></dxi-column>
               <dxi-column dataField="description" caption="Descrição"></dxi-column>
               <dxi-column dataField="price" caption="Preço"></dxi-column>
@@ -113,7 +118,11 @@
         <dxi-column dataField="name" caption="Nome"></dxi-column>
         <dxi-column dataField="description" caption="Descrição"></dxi-column>
         <dxi-column dataField="discount" caption="Desconto"></dxi-column>
-        <dxi-column dataField="category.name" name="categoDetais" caption="Categoria" [width]="125"></dxi-column>          
+        <!-- <dxi-column dataField="category.name" name="categoDetais" caption="Categoria" [width]="125"></dxi-column> -->
+        <dxi-column dataField="category.id" [allowEditing]="true" caption="Categoria">
+          <dxo-lookup [dataSource]="categories" displayExpr="name" valueExpr="id">
+          </dxo-lookup>
+        </dxi-column>          
         <dxi-column dataField="active" caption="Ativo" dataType="boolean"></dxi-column>
         <dxi-column dataField="created_at" caption="Data Criação" dataType="date"></dxi-column>
  
