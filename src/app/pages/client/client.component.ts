@@ -27,6 +27,7 @@ export class ClientComponent implements OnInit {
   }
 
   onSavedClient(data: any) {
+    console.log('clients ', this.clients)
     console.log("data ", data)
     if(data.changes[0] && data.changes[0].type == "update") {
       if(data.changes[0].data["address"]) {

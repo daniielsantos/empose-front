@@ -4,11 +4,9 @@ import { Orders } from 'app/shared/models/order.model';
 import notify from 'devextreme/ui/notify';
 import { environment } from 'environments/environment';
 import { OrderService } from './services/order.service';
+import { exportDataGrid } from 'devextreme/pdf_exporter';
+import { jsPDF } from 'jspdf';
 
-
-// import { exportDataGrid } from 'devextreme/excel_exporter';
-// import { Workbook } from 'exceljs';
-// import { saveAs } from 'file-saver-es';
 
 @Component({
   selector: 'app-order',
@@ -70,19 +68,13 @@ export class OrderComponent implements OnInit {
   }
 
   onExporting(e: any) {
-    // const doc = new jsPDF();
-    // const workbook = new Workbook();
-    // const worksheet = workbook.addWorksheet('Employees');
-    // exportDataGrid({
-    //   component: e.component,
-    //   worksheet,
-    //   autoFilterEnabled: true
-    // }).then(() => {
-    //   workbook.xlsx.writeBuffer().then((buffer) => {
-    //     saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'pedidos.xlsx')
-    //   })
-    //   e.cancel = true
-    // });
+    const doc = new jsPDF();
+    exportDataGrid({
+      jsPDFDocument: doc,
+      component: e.component,
+    }).then(() => {
+      doc.save('pedidos.xls');
+    });
   }
 
   orderEditing(e: any) {

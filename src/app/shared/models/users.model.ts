@@ -6,7 +6,7 @@ export class Users {
       public name?: string,
       public email?: string,
       public password?: string,
-      public role?: string,
+      public role?: number,
       public store?: Store,
       public created_at?: Date,
       public updated_at?: Date,

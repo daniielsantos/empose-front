@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from 'app/shared/models/store.model';
 import { Users } from 'app/shared/models/users.model';
+import notify from 'devextreme/ui/notify';
 import { RegisterService } from './services/register.service';
 
 @Component({
@@ -36,6 +37,16 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  alert(msg: string) {
+    notify({message: msg, width: 400})
+    return new Promise(resolve => setTimeout(() => {
+      this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['login']);
+      });
+      resolve('a')
+    }, 2000))
+  }
+
   onSubmit(): void {
     const { name, email, password, storeName, storeCpnj, address } = this.form;
     const userStore: Store = {
@@ -48,11 +59,12 @@ export class RegisterComponent implements OnInit {
       name: name,
       email: email,
       password: password,
-      store: userStore
+      store: userStore,
+      role: 2
     }
     this.registeService.save(userRegister).subscribe(
-      data => {
-        this.router.navigate(['/login']);
+      async (data) => {
+        await this.alert("Sucesso!")
         this.isSuccessful = true;
         this.isSignUpFailed = false;
       },

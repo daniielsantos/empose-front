@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ClientComponent } from './pages/client/client.component';
+import { ConfigComponent } from './pages/config/config.component';
 import { DocumentationComponent } from './pages/documentation/documentation.component';
 import { EmailSenderComponent } from './pages/email-sender/email-sender.component';
 import { FileUploadComponent } from './pages/file-upload/file-upload.component';
@@ -70,6 +71,10 @@ const routes: Routes = [
       {
         path: 'email',
         component: EmailSenderComponent
+      },
+      {
+        path: 'configs',
+        component: ConfigComponent
       },
       {
         path: 'documentation',

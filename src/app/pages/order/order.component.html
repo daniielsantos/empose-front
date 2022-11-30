@@ -21,6 +21,12 @@ keyExpr="id"
 >
 </dxo-pager>
 
+<dxo-export
+[enabled]="true"
+[formats]="['pdf']"
+[allowExportSelectedData]="true"
+></dxo-export>
+
 <dxo-editing
 mode="form"
 [allowUpdating]="true"
@@ -45,7 +51,7 @@ mode="form"
         </dxo-lookup>
       </dxi-item>
 
-      <dxi-item dataField="delivery_status" caption="opaaaaa" [width]="125">
+      <dxi-item dataField="delivery_status" caption="Status Entrega" [width]="125">
         <dxo-lookup [dataSource]="statusEnum" displayExpr="name" valueExpr="id">
         </dxo-lookup>
       </dxi-item>

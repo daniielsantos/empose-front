@@ -22,7 +22,16 @@ export class SidenavComponent implements OnInit {
   showModeratorBoard = false;
   username?: string;
   userRole?: string;
-
+  userRoles = [
+    {
+      id: 1,
+      name: 'ADMIN'
+    },
+    {
+      id: 2,
+      name: 'MANAGER'
+    }
+  ]
   constructor(private observer: BreakpointObserver, private router: Router, private tokenStorageService: LoginService) { 
 
   }
@@ -57,15 +66,14 @@ export class SidenavComponent implements OnInit {
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
       this.roles = user.role;
-      this.userRole = user.role;
+      this.userRole = this.userRoles.find(e => e.id == user.role)?.name//user.role;
       if(this.roles == 'admin')
         this.showAdminBoard = true
-
       this.username = user.name;
     }
   }
   getUser() {
-    console.log("aaaaaaaaaaaaaaaa")
+    
   }
 
   logout(): void {

@@ -27,11 +27,11 @@ Empose
 <mat-sidenav #sidenav="matSidenav" >
 
     <img src="assets/images/e3.png" alt="logo" class="avatar mat-elevation-z8" mat-button (click)="getUser()">
-    <!-- <button mat-button class="menu-button"> -->
+    
 
-        <h4 class="name">Olá, {{username}}</h4>
-        <h5 class="designation">{{userRole}}</h5>
-    <!-- </button> -->
+    <h4 class="name">Olá, {{username}}</h4>
+    <h5 class="designation">{{userRole}}</h5>
+
 
     <mat-divider></mat-divider>
 
@@ -68,6 +68,10 @@ Empose
     <button mat-button class="menu-button" [routerLink]="['payment-methods']">
         <mat-icon>credit_card</mat-icon>
         <span>Meios de Pagamento</span>
+    </button>
+    <button mat-button class="menu-button" [routerLink]="['configs']">
+        <mat-icon>build</mat-icon>
+        <span>Configurações</span>
     </button>
     <mat-divider></mat-divider>
 

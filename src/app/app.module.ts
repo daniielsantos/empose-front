@@ -33,6 +33,7 @@ import { InventoryComponent } from './pages/product/components/inventory/invento
 import { PaymentMethodComponent } from './pages/payment-method/payment-method.component';
 import { UsersComponent } from './pages/users/users.component';
 import { PasswordRecoveryComponent } from './pages/password-recovery/password-recovery.component';
+import { ConfigComponent } from './pages/config/config.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { PasswordRecoveryComponent } from './pages/password-recovery/password-re
     InventoryComponent,
     PaymentMethodComponent,
     UsersComponent,
-    PasswordRecoveryComponent
+    PasswordRecoveryComponent,
+    ConfigComponent
   ],
   imports: [
     BrowserModule,
