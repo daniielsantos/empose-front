@@ -68,7 +68,6 @@ mode="form"
     <dxo-scrolling mode="virtual"></dxo-scrolling>
     <dxo-paging [enabled]="false"></dxo-paging>
     <dxo-editing
-      [allowDeleting]="true"
       [allowUpdating]="true"
       [allowAdding]="true"
       [useIcons]="true"
@@ -95,9 +94,10 @@ mode="form"
       </dxo-lookup>                
     </dxi-column> -->
 
-    <dxi-column dataField="id" allowEditing="false"></dxi-column>
+    <!-- <dxi-column dataField="id" allowEditing="false"></dxi-column> -->
     <dxi-column dataField="name" caption="Nome" allowEditing="false"></dxi-column>
     <dxi-column dataField="description" caption="Descrição" allowEditing="false"></dxi-column>
+    <dxi-column dataField="price" caption="Preço" allowEditing="false"></dxi-column>
     <dxi-column dataField="quantity" caption="Quantidade" allowEditing="false"></dxi-column>
 
     </dx-data-grid>

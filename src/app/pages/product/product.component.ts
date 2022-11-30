@@ -37,7 +37,7 @@ export class ProductComponent implements AfterViewInit {
   readonly allowedPageSizes = [5, 10, 'all'];
   prodEditing!: Product 
   
-  // categoryEditing: Category = {}
+  idCounter: number = 0
   selectedCategoryId: any = {}
 
 
@@ -62,29 +62,24 @@ export class ProductComponent implements AfterViewInit {
 
 
   }
-
-  onEditorPreparing = (e: any) => {
-
-  };
-
-  // setCellValue = (rowData: any, value: any) => {
-  //   const sku = this.sku.find(s => s.id == value)
-  //   rowData.description = sku!.description;
-  //   rowData.name = sku!.name;
-  //   rowData.price = sku!.price;
-  //   rowData.id = sku!.id;
-  // };
-
-
+  alert(msg: string) {
+    notify({message: msg, width: 400})
+    return new Promise(resolve => setTimeout(() => {
+      this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+        console.log('redirect')
+        this.router.navigate(['product']);
+      });
+      resolve('a')
+    }, 2000))
+  }
 
   productEditing(e: any) {
-    this.prodEditing = {}
-    // this.categoryEditing = {}
+    // this.prodEditing = {}
+    // this.prodEditing = e.data || null
     this.prodSkus = []
-    if(e.data.skus[0].id){
+    if(e.data.skus[0].id) {
       this.prodSkus = e.data.skus
       this.prodEditing = e.data
-      // this.categoryEditing = e.data.category
     }
   }
 
@@ -97,10 +92,8 @@ export class ProductComponent implements AfterViewInit {
 
 
   deleteProduct(e: any) {
-    this.productService.delete(e.data).subscribe(res => {
-      this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-        this.router.navigate(['product']);
-      });
+    this.productService.delete(e.data).subscribe(async (res) => {
+      await this.alert("Produto deletado!")
     })
   }
 
@@ -111,31 +104,30 @@ export class ProductComponent implements AfterViewInit {
       component: e.component,
       // indent: 5,
     }).then(() => {
-      doc.save('Companies.pdf');
+      doc.save('produtos.pdf');
     });
   }
 
   onSavedProduct(data: any) {
     console.log('data ', data)
-    this.selectedCategoryId = localStorage.getItem('selectedCategory')
+   
     if(data.changes.length && this.prodEditing)
       this.prodEditing = data.changes[0].data
-    if(this.selectedCategoryId && this.prodEditing) {
-      this.prodEditing.category!.id = parseInt(this.selectedCategoryId)
-    }
+
     if(this.prodEditing) {
       console.log("product editing ", this.prodEditing)
-      this.productService.update(this.prodEditing).subscribe(product => {
-        this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['product']);
-        });
+      this.productService.update(this.prodEditing).subscribe(async (product) => {
+        await this.alert("Produto atualizado!")
       })
     }
 
     if(data.changes.length && data.changes[0].type == "insert") {
-      console.log("entrou insert ", data.changes[0])
+      if(!this.prodSkus.length) {
+        notify("Insira os skus")
+        return
+      }
       let category: Category = {
-        id: parseInt(this.selectedCategoryId)
+        id: data.changes[0].data.category.id
       }
       let prodPayload: Product = {
         name: data.changes[0].data.name,
@@ -145,24 +137,25 @@ export class ProductComponent implements AfterViewInit {
         skus: this.prodSkus,
         discount: data.changes[0].data.discount || 0
       }
-      this.productService.save(prodPayload).subscribe(res => {
-        this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['product']);
-        });
+      this.productService.save(prodPayload).subscribe(async (res) => {
+        await this.alert("Produto criado!")
+        // this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+        //   this.router.navigate(['product']);
+        // });
       })      
     }
-    localStorage.removeItem('selectedCategory')
   }
 
-  // getValue() {
-  //   return this.categoryEditing.id
-  // }
+  setCellValue = (rowData: any, value: any) => {
+    // console.log("rowData.id ", this.idCounter)
+    // this.idCounter = this.idCounter -1
+    // rowData.id = this.idCounter;
+    rowData.name = value;
+    rowData.active = true
+  };
 
+  getSku(e: any) {
+    console.log("eeeeeeee ", e)
 
-  onSelectionChanged(e: any) {
-    localStorage.setItem('selectedCategory', e.selectedItem.id);
   }
-
-
-
 }

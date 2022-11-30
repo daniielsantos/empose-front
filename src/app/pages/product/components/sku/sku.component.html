@@ -6,7 +6,6 @@ keyExpr="id"
 (onSaved)="onSavedSku($event)"
 (onEditingStart)="skuEdit($event)"
 (onEditCanceled)="cancelSkuEditing()"
-(onRowRemoved)="deleteSku($event)"
 >
 <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
     
@@ -49,6 +48,7 @@ keyExpr="id"
       [dataSource]="skuEditingImages"
       [showBorders]="true"    
       (onSaved)="onSavedImages($event)"
+      (onRowRemoved)="deleteImage($event)"
       >
       <!-- (onSaved)="productAdding($event)" -->
       <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>

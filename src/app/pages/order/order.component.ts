@@ -55,7 +55,6 @@ export class OrderComponent implements OnInit {
     notify({message: msg, width: 400})
     return new Promise(resolve => setTimeout(() => {
       this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-        console.log('redirect')
         this.router.navigate(['order']);
       });
       resolve('a')

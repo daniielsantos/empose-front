@@ -62,7 +62,8 @@
               id="gridContainerPro"
               keyExpr="id"
               [dataSource]="prodSkus"
-              [showBorders]="true"              
+              [showBorders]="true"
+              (onSaved)="getSku($event)"
             >
               <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
               <dxo-filter-row [visible]="true"></dxo-filter-row>
@@ -70,7 +71,6 @@
               <dxo-scrolling mode="virtual"></dxo-scrolling>
               <dxo-paging [enabled]="false"></dxo-paging>
               <dxo-editing
-                [allowDeleting]="true"
                 [allowUpdating]="true"
                 [allowAdding]="true"
                 [useIcons]="true"
@@ -83,25 +83,15 @@
               <dxi-button name="edit"></dxi-button>
               </dxi-column>
 
-              <!-- <dxi-column 
-                name="droplol" 
-                dataField="description" 
-                caption="Skus" 
-                [setCellValue]="setCellValue"
-                (selectedFilterOperationChange)="onEditorPreparing($event)"
-              >
-                <dxo-lookup
-                  [dataSource]="sku" 
-                  valueExpr="id"
-                  displayExpr="name" 
-                >
-                </dxo-lookup>                
-              </dxi-column> -->
 
               <!-- <dxi-column dataField="id" [allowEditing]="false"></dxi-column> -->
-              <dxi-column dataField="name" caption="Nome"></dxi-column>
+              <dxi-column dataField="name" caption="Nome" [setCellValue]="setCellValue">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+              </dxi-column>
               <dxi-column dataField="description" caption="Descrição"></dxi-column>
-              <dxi-column dataField="price" caption="Preço"></dxi-column>
+              <dxi-column dataField="price" caption="Preço" dataType="number">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+              </dxi-column>
               <dxi-column dataField="active" caption="Ativo" dataType="boolean"></dxi-column>
               </dx-data-grid>
             </dxi-item>
@@ -115,10 +105,11 @@
         </dxi-column>
 
         <dxi-column dataField="id" [width]="70" caption="Id"></dxi-column>
-        <dxi-column dataField="name" caption="Nome"></dxi-column>
+        <dxi-column dataField="name" caption="Nome">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-column>
         <dxi-column dataField="description" caption="Descrição"></dxi-column>
         <dxi-column dataField="discount" caption="Desconto"></dxi-column>
-        <!-- <dxi-column dataField="category.name" name="categoDetais" caption="Categoria" [width]="125"></dxi-column> -->
         <dxi-column dataField="category.id" [allowEditing]="true" caption="Categoria">
           <dxo-lookup [dataSource]="categories" displayExpr="name" valueExpr="id">
           </dxo-lookup>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Users } from 'app/shared/models/users.model';
+import notify from 'devextreme/ui/notify';
+import { LoginService } from '../login/services/login.service';
 import { UsersService } from './services/users.service';
 
 @Component({
@@ -9,12 +11,21 @@ import { UsersService } from './services/users.service';
 })
 export class UsersComponent implements OnInit {
   users: Users[] = [];
+  userRoles = [
+    {
+      id: 1,
+      name: 'ADMIN'
+    },
+    {
+      id: 2,
+      name: 'MANAGER'
+    }
+  ]
   readonly allowedPageSizes = [5, 10, 'all'];
-  constructor(private userService: UsersService) { }
+  constructor(private userService: UsersService, private tokenStorageService: LoginService) { }
 
   ngOnInit(): void {
     this.userService.findAll().subscribe(users => {
-      console.log("users ", users)
       this.users = users;
     })
   }
@@ -22,13 +33,21 @@ export class UsersComponent implements OnInit {
   onSavedUser(data: any) {
     if(data.changes[0] && data.changes[0].type == "update") {
       this.userService.update(data.changes[0].data).subscribe(pay => {
-        console.log("users updated successfully");
+        notify({message: 'Usuário atualizado!', width: 400})
       })
     }
     
     if(data.changes[0] && data.changes[0].type == "insert") {
-      this.userService.save(data.changes[0].data).subscribe(users => {
-        console.log("users saved successfully ",users);
+      const usr = this.tokenStorageService.getUser();
+      let user: Users = {
+        id: data.changes[0].data.id,
+        name: data.changes[0].data.name,
+        email: data.changes[0].data.email,
+        role: data.changes[0].data.role,
+        store: usr.store
+      }
+      this.userService.save(user).subscribe(users => {
+        notify({message: 'Usuário cadastrado!', width: 400})
       })
     }
   }
@@ -36,6 +55,7 @@ export class UsersComponent implements OnInit {
   onRemovedUser(data: any) {
     this.userService.delete(data.data).subscribe(paymentMethods => {
       console.log("Client deleted successfully ",paymentMethods);
+      notify({message: 'Usuário excluído!', width: 400})
     })
   }
 }

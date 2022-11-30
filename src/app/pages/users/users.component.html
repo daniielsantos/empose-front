@@ -42,7 +42,10 @@
     <dxi-column dataField="name" caption="Nome"></dxi-column>
     <dxi-column dataField="email" caption="Email"></dxi-column>
     <dxi-column dataField="password" caption="Senha"></dxi-column>
-    <dxi-column dataField="role" caption="Cargo"></dxi-column>
+    <dxi-column dataField="role" caption="Função">
+      <dxo-lookup [dataSource]="userRoles" displayExpr="name" valueExpr="id">
+      </dxo-lookup>
+    </dxi-column>
     
   </dx-data-grid>
   

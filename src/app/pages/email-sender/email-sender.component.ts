@@ -5,6 +5,7 @@ import { Client } from 'app/shared/models/client.model';
 import { EmailSenderService } from './services/email-sender.service';
 import { EmailOptions } from 'app/shared/models/email.model';
 import notify from 'devextreme/ui/notify';
+import { Configs } from 'app/shared/models/configs.model';
 
 @Component({
   selector: 'app-email-sender',
@@ -23,12 +24,17 @@ export class EmailSenderComponent implements OnInit {
   value: string;
   contentText: any;
   subjectText: any;
+  config: Configs = {};
 
   
 
   constructor(private clientService: ClientService, private emailSenderService: EmailSenderService) { 
     this.allMode = 'allPages'
     this.checkBoxesMode = 'always' //themes.current().startsWith('material') ? 'always' : 'onClick';
+    this.emailSenderService.getConfigs().subscribe(config => {
+      this.config = config
+      console.log('configs ', config)
+    })
     this.clientService.findAll().subscribe(clients => {
       this.clients = clients
     })
@@ -45,17 +51,12 @@ export class EmailSenderComponent implements OnInit {
   }
 
   getChanges(data: any) {
-    // console.log(data.selectedRowsData)
     this.clientSelected = data.selectedRowsData
   }
 
   ngOnInit(): void {
   }
 
-
-
-
-//-------- text
 
   onCheckboxValueChanged(e: any) {
     console.log(e)
@@ -65,11 +66,11 @@ export class EmailSenderComponent implements OnInit {
     console.log(this.clientSelected)
     for await (const it of this.clientSelected) {
       let options: EmailOptions = {
-        host: "smtp.gmail.com",
+        host: this.config.email_host,
         port: 587,
-        username: "daniielsouzapvh@gmail.com",
-        password: "manjmogzlupwopwx",
-        from: "daniielsouzapvh@gmail.com",
+        username: this.config.email_username,
+        password: this.config.email_password,
+        from: this.config.email_username,
         to: it.email,
         template: "default",
         params: {
@@ -81,8 +82,7 @@ export class EmailSenderComponent implements OnInit {
         html: ""
       }
       this.emailSenderService.sendEmail(options).subscribe(res => {
-        console.log("emails sent")
-        notify('Email enviado!')
+        notify({message: 'Email enviado!', width: 400})
       })
     }
   }
