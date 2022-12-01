@@ -18,12 +18,13 @@ export class ClientComponent implements OnInit {
   readonly allowedPageSizes = [5, 10, 'all'];
 
   constructor(private clientService: ClientService, private router: Router) { 
-    this.clientService.findAll().subscribe(clients => {
-      this.clients = clients;
-    })
+
   }
 
   ngOnInit(): void {
+    this.clientService.findAll().subscribe(clients => {
+      this.clients = clients;
+    })
   }
 
   alert(msg: string) {

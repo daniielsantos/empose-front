@@ -85,14 +85,16 @@ export class SkuComponent implements OnInit {
     if(this.skusEditing && !data.changes.length) {
       console.log('entrou update ',this.skusEditing)
       this.skuService.update(this.skusEditing).subscribe(async (skus) => {
-        await this.alert("Sku atualizado")
+        await this.alert("Sku atualizado")        
       })
+      return
     }
     if(this.skusEditing && data.changes[0].type == 'update') {
       console.log('entrou update 2',this.skusEditing)
       this.skuService.update(this.skusEditing).subscribe(async (skus) => {
         await this.alert("Sku atualizado")
       })
+      return
     }
     if(data.length && data.changes[0].type == 'remove') {
       console.log('entrouu remove ', this.skusEditing)

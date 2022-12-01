@@ -30,12 +30,22 @@ keyExpr="id"
 <dxo-editing
 mode="form"
 [allowUpdating]="true"
+[allowAdding]="true"
 [useIcons]="true"
 >
 <dxo-form>
 
-  <dxi-item itemType="group" caption="Pedido" name="prodEdit">
-      <dxi-item dataField="status" [allowEditing]="false">
+  <dxi-item itemType="group" caption="Cliente" name="orderEdit">
+      <dxi-item dataField="client.id" caption="Cliente">
+        <dxo-lookup [dataSource]="clients" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+      </dxi-item>
+      <dxi-item dataField="payment.id" caption="Pagamento">
+        <dxo-lookup [dataSource]="paymentMethods" displayExpr="name" valueExpr="id">
+        </dxo-lookup>
+      </dxi-item>
+
+      <dxi-item dataField="status">
         <dxo-lookup [dataSource]="deviveryStatusEnum" displayExpr="name" valueExpr="id">
         </dxo-lookup>
       </dxi-item>
@@ -55,7 +65,6 @@ mode="form"
     keyExpr="id"
     [dataSource]="orderItems"
     [showBorders]="true"
-    (onRowRemoved)="deleteItemRow()"
   >
     <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
     <dxo-filter-row [visible]="true"></dxo-filter-row>
@@ -64,20 +73,40 @@ mode="form"
     <dxo-paging [enabled]="false"></dxo-paging>
     <dxo-editing
       [allowUpdating]="true"
+      [allowDeleting]="true"
       [allowAdding]="true"
       [useIcons]="true"
-      mode="popup"
+      mode="row"
     >
     </dxo-editing>
     <dxi-column type="buttons" [width]="90">
     <dxi-button name="delete"></dxi-button>
-    <dxi-button name="adding"></dxi-button>
+    <dxi-button name="save"></dxi-button>
+    <dxi-button name="cancel"></dxi-button>
+    <!-- <dxi-button name="adding"></dxi-button> -->
+    <!-- <dxi-button name="edit"></dxi-button> -->
     </dxi-column>
 
-    <dxi-column dataField="name" caption="Nome" allowEditing="false"></dxi-column>
-    <dxi-column dataField="description" caption="Descrição" allowEditing="false"></dxi-column>
-    <dxi-column dataField="price" caption="Preço" allowEditing="false"></dxi-column>
-    <dxi-column dataField="quantity" caption="Quantidade" allowEditing="false"></dxi-column>
+    <!-- <dxi-column dataField="id" caption="id" [allowEditing]="false"></dxi-column> -->
+    <dxi-column 
+      name="droplols" 
+      dataField="id" 
+      caption="Sku" 
+      [setCellValue]="setCellValue"
+    >
+      <dxo-lookup
+        [dataSource]="allSkus" 
+        valueExpr="id"
+        displayExpr="name" 
+      >
+      </dxo-lookup>                    
+    </dxi-column>
+
+    <!-- <dxi-column dataField="id" caption="Id" [allowEditing]="false"></dxi-column> -->
+    <dxi-column dataField="name" caption="Nome" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="description" caption="Descrição" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="price" caption="Preço" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="quantity" caption="Quantidade"></dxi-column>
 
     </dx-data-grid>
 
@@ -92,16 +121,27 @@ mode="form"
 </dxi-column>
 
 <dxi-column dataField="id" [width]="70" caption="Id"></dxi-column>
-<dxi-column dataField="client.name" caption="Cliente"></dxi-column>
-<dxi-column dataField="status" caption="Status Entrega" [width]="230">
-  <dxo-lookup [dataSource]="deviveryStatusEnum" displayExpr="name" valueExpr="id">
+<dxi-column dataField="client.id" caption="Cliente">
+  <dxi-validation-rule type="required"></dxi-validation-rule>
+  <dxo-lookup [dataSource]="clients" displayExpr="name" valueExpr="id">
   </dxo-lookup>
 </dxi-column>
-<dxi-column dataField="delivery_status" caption="Status Pagamento">
-    <dxo-lookup [dataSource]="statusEnum" displayExpr="name" valueExpr="id">
+
+<dxi-column dataField="status" caption="Status Pagamento" [width]="230">
+  <dxi-validation-rule type="required"></dxi-validation-rule>
+  <dxo-lookup [dataSource]="statusEnum" displayExpr="name" valueExpr="id">
+  </dxo-lookup>
+</dxi-column>
+<dxi-column dataField="delivery_status" caption="Status Entrega">
+    <dxi-validation-rule type="required"></dxi-validation-rule>
+    <dxo-lookup [dataSource]="deviveryStatusEnum" displayExpr="name" valueExpr="id">
     </dxo-lookup>
 </dxi-column>
-<dxi-column dataField="payment.name" caption="Pagamento"></dxi-column>
+<dxi-column dataField="payment.id" caption="Pagamento">
+  <dxi-validation-rule type="required"></dxi-validation-rule>
+  <dxo-lookup [dataSource]="paymentMethods" displayExpr="name" valueExpr="id">
+  </dxo-lookup>
+</dxi-column>
 <dxi-column dataField="total" caption="Total"></dxi-column>
 
 <dxi-column dataField="created_at" caption="Data Criação" dataType="date"></dxi-column>

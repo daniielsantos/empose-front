@@ -19,10 +19,12 @@ export class InventoryComponent implements OnInit {
   ngOnInit(): void {
     this.inventoryService.findAll().subscribe(inventoryes => {
       this.inventory = inventoryes;
+      console.log("inventory ", inventoryes)
     })
   }
 
   onUpdatedInventory(data: any) {
+    console.log("data ", data.data)
     this.inventoryService.update(data.data).subscribe(inventory => {
       notify({message: 'Inventario atualizado', width: 400})
     })

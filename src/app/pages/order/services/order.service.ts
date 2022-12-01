@@ -21,5 +21,9 @@ export class OrderService {
   update(order: Orders): Observable<Orders> {
     return this.httpClient.put<Orders>(`${this.apiUrl}/order`, order)
   }
+
+  save(order: Orders): Observable<Orders> {
+    return this.httpClient.post<Orders>(`${this.apiUrl}/order`, order)
+  }
   
 }
