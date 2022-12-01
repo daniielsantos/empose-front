@@ -34,11 +34,9 @@
 <dxi-column type="buttons" [width]="110">
     <dxi-button name="edit"></dxi-button>
     <dxi-button name="delete"></dxi-button>
-
 </dxi-column>
-<!-- <dxi-column dataField="id" caption="Id"></dxi-column> -->
 <dxi-column dataField="email_host" caption="Email host"></dxi-column>
 <dxi-column dataField="email_port" caption="Email porta"></dxi-column>
 <dxi-column dataField="email_username" caption="Email usuário"></dxi-column>
-<dxi-column dataField="email_password" caption="Email senha"></dxi-column>
+<dxi-column dataField="email_password" caption="Email senha" [customizeText]="customizeText"></dxi-column>
 </dx-data-grid>

@@ -32,20 +32,9 @@ mode="form"
 [allowUpdating]="true"
 [useIcons]="true"
 >
-<dxo-form
->
+<dxo-form>
 
   <dxi-item itemType="group" caption="Pedido" name="prodEdit">
-      <!-- <dxi-item dataField="name"></dxi-item>
-      <dxi-item dataField="description"></dxi-item>
-      <dxi-item dataField="discount" ></dxi-item> -->
-      <!-- <dxi-item
-        name="catName"
-        dataField="Categoria"
-        editorType="dxSelectBox"
-        [editorOptions]="{dataSource: categories, placeholder: categoryEditing.name, onSelectionChanged: onSelectionChanged, valueExpr:'id', displayExpr: 'name'}"
-        >
-      </dxi-item>  -->
       <dxi-item dataField="status" [allowEditing]="false">
         <dxo-lookup [dataSource]="deviveryStatusEnum" displayExpr="name" valueExpr="id">
         </dxo-lookup>
@@ -58,8 +47,8 @@ mode="form"
 
       <dxi-item dataField="canceled" caption="Cancelar"></dxi-item>
   </dxi-item>
-  <dxi-item itemType="group" caption="Items" name="items-container">
 
+  <dxi-item itemType="group" caption="Items" name="items-container">
 
     <dx-data-grid
     id="gridContainerPro"
@@ -85,22 +74,6 @@ mode="form"
     <dxi-button name="adding"></dxi-button>
     </dxi-column>
 
-    <!-- <dxi-column 
-      name="droplol" 
-      dataField="description" 
-      caption="Skus" 
-      [setCellValue]="setCellValue"
-      (selectedFilterOperationChange)="onEditorPreparing($event)"
-    >
-      <dxo-lookup
-        [dataSource]="sku" 
-        valueExpr="id"
-        displayExpr="name" 
-      >
-      </dxo-lookup>                
-    </dxi-column> -->
-
-    <!-- <dxi-column dataField="id" allowEditing="false"></dxi-column> -->
     <dxi-column dataField="name" caption="Nome" allowEditing="false"></dxi-column>
     <dxi-column dataField="description" caption="Descrição" allowEditing="false"></dxi-column>
     <dxi-column dataField="price" caption="Preço" allowEditing="false"></dxi-column>
@@ -120,22 +93,18 @@ mode="form"
 
 <dxi-column dataField="id" [width]="70" caption="Id"></dxi-column>
 <dxi-column dataField="client.name" caption="Cliente"></dxi-column>
-<dxi-column dataField="status" caption="Status Pagamento" [width]="230">
+<dxi-column dataField="status" caption="Status Entrega" [width]="230">
   <dxo-lookup [dataSource]="deviveryStatusEnum" displayExpr="name" valueExpr="id">
   </dxo-lookup>
 </dxi-column>
-<dxi-column dataField="delivery_status" caption="Status Entrega">
+<dxi-column dataField="delivery_status" caption="Status Pagamento">
     <dxo-lookup [dataSource]="statusEnum" displayExpr="name" valueExpr="id">
     </dxo-lookup>
 </dxi-column>
+<dxi-column dataField="payment.name" caption="Pagamento"></dxi-column>
 <dxi-column dataField="total" caption="Total"></dxi-column>
 
-<!-- <dxi-column dataField="category.name" name="categoDetais" caption="Categoria" [width]="125">
-</dxi-column>           -->
 <dxi-column dataField="created_at" caption="Data Criação" dataType="date"></dxi-column>
 <dxi-column dataField="canceled" caption="Cancelada" [width]="100"></dxi-column>
-
-<!-- <dxo-export [enabled]="true" [allowExportSelectedData]="true"></dxo-export> -->
-
 
 </dx-data-grid>

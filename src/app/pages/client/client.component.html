@@ -1,4 +1,3 @@
-<!-- <ng-template ngbNavContent> -->
   <h1>Clientes</h1>
   <dx-data-grid
     id="gridContainer"
@@ -7,6 +6,7 @@
     keyExpr="id"
     (onSaved)="onSavedClient($event)"
     (onRowRemoved)="onRemovedClient($event)"
+    (onEditingStart)="clientEditing($event)"
   >
   <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
       
@@ -31,14 +31,58 @@
     [allowDeleting]="true"
     [useIcons]="true"
     [allowAdding]="true"
-  ></dxo-editing>
+  >
+  <dxo-form>
+    <dxi-item itemType="group" caption="Cliente" name="Cliente">
+      <dxi-item dataField="name" [allowEditing]="false"></dxi-item>
+      <dxi-item dataField="email" caption="Email" [width]="125"></dxi-item>
+      <dxi-item dataField="cpf" caption="Cancelar"></dxi-item>
+      <dxi-item dataField="phone_number" caption="Cancelar"></dxi-item>
+    </dxi-item>
+
+    <dxi-item itemType="group" caption="Endereços" name="Endereço">
+
+      <dx-data-grid
+      id="gridContainerPro"
+      keyExpr="id"
+      [dataSource]="clientAddress"
+      [showBorders]="true"
+    >
+      <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-header-filter [visible]="true"></dxo-header-filter>
+      <dxo-scrolling mode="virtual"></dxo-scrolling>
+      <dxo-paging [enabled]="false"></dxo-paging>
+      <dxo-editing
+        [allowUpdating]="true"
+        [allowAdding]="true"
+        [useIcons]="true"
+        mode="row"
+      >
+      </dxo-editing>
+      <dxi-column type="buttons" [width]="90">
+      <dxi-button name="delete"></dxi-button>
+      <dxi-button name="adding"></dxi-button>
+      <dxi-button name="edit"></dxi-button>
+      </dxi-column>
+  
+      <dxi-column dataField="address" caption="Endereço" allowEditing="false"></dxi-column>
+      <dxi-column dataField="city" caption="Cidade" allowEditing="false"></dxi-column>
+      <dxi-column dataField="state" caption="Estado" allowEditing="false"></dxi-column>
+      <dxi-column dataField="country" caption="País" allowEditing="false"></dxi-column>
+      <dxi-column dataField="zip_code" caption="Cep" allowEditing="false"></dxi-column>
+  
+      </dx-data-grid>
+
+    </dxi-item>
+
+  </dxo-form>
+</dxo-editing>
 
   <dxi-column type="buttons" [width]="110">
     <dxi-button name="edit"></dxi-button>
     <dxi-button name="delete"></dxi-button>
-
   </dxi-column>
-  <!-- <dxi-column dataField="id" caption="Id"></dxi-column> -->
   <dxi-column dataField="name" caption="Nome"></dxi-column>
   <dxi-column dataField="email"></dxi-column>
   <dxi-column dataField="cpf"></dxi-column>

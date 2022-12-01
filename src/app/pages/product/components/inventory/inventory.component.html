@@ -22,6 +22,7 @@
     <dxi-column type="buttons" [width]="110">
     <dxi-button name="edit"></dxi-button>
     </dxi-column>
-    <dxi-column dataField="sku_id" caption="Id Sku" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="id" caption="Id" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="sku.name" caption="Nome" [allowEditing]="false"></dxi-column>
     <dxi-column dataField="quantity" caption="Quantidade"></dxi-column>
 </dx-data-grid>

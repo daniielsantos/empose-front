@@ -19,24 +19,34 @@ export class FileUploadComponent implements OnInit {
   value: any[] = []
 
 
-  startUpload(e:any) {
-    let formData = new FormData();
-    formData.append("file", e.file, e.file.name);
-    this.fileUploadService.save(formData).subscribe(res => {
-      this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-        this.router.navigate(['uploads']);
-      });
-    })
-    // notify("Upload feito!")
-    return true
-  }
+
 
   constructor(private fileUploadService: FileUploadService, private httpClient: HttpClient, private router: Router) { 
     this.fileUploadService.findAll().subscribe(uploads => {
       this.uploads = uploads;
     })
   }
+  alert(msg: string) {
+    notify({message: msg, width: 400})
+    return new Promise(resolve => setTimeout(() => {
+      this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['uploads']);
+      });
+      resolve('a')
+    }, 1500))
+  }
 
+  startUpload(e:any) {
+    let formData = new FormData();
+    formData.append("file", e.file, e.file.name);
+    this.fileUploadService.save(formData).subscribe(async(res) => {
+      await this.alert("Sucesso!")
+      // this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+      //   this.router.navigate(['uploads']);
+      // });
+    })
+    return true
+  }
 
   ngOnInit(): void {
   }
@@ -47,8 +57,8 @@ export class FileUploadComponent implements OnInit {
         id: data.changes[0].data["id"],
         name: data.changes[0].data["name"]
       }
-      this.fileUploadService.update(upload).subscribe(cli => {
-        console.log("File updated successfully");
+      this.fileUploadService.update(upload).subscribe(async(cli) => {
+        await this.alert("Sucesso!")
       })
     }
   }
@@ -59,8 +69,13 @@ export class FileUploadComponent implements OnInit {
       id: data.data.id,
       name: data.data.name
     }
-    this.fileUploadService.delete(upload).subscribe(res => {
-      console.log("File deleted successfully ", res);
+    this.fileUploadService.delete(upload).subscribe(async (res) => {
+      await this.alert("Sucesso!")
     })
+  }
+  cellTemplate(container: any, options: any) {
+    // $("<a>").text(options.displayValue)
+    //   .attr("href", options.data.myUrlField)
+    //   .appendTo(container);
   }
 }

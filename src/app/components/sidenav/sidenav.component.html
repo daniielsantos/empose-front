@@ -28,9 +28,13 @@ Empose
 
     <img src="assets/images/e3.png" alt="logo" class="avatar mat-elevation-z8" mat-button (click)="getUser()">
     
-
+    
     <h4 class="name">Olá, {{username}}</h4>
-    <h5 class="designation">{{userRole}}</h5>
+    <!-- <u> -->
+        <h4 class="designation">Loja - {{store}}</h4>
+    <!-- </u> -->
+    <h6 class="designation">{{userRole}}</h6>
+    
 
 
     <mat-divider></mat-divider>
@@ -69,7 +73,7 @@ Empose
         <mat-icon>credit_card</mat-icon>
         <span>Meios de Pagamento</span>
     </button>
-    <button mat-button class="menu-button" [routerLink]="['configs']">
+    <button mat-button class="menu-button" [routerLink]="['configs']" [hidden]="showConfigPage">
         <mat-icon>build</mat-icon>
         <span>Configurações</span>
     </button>

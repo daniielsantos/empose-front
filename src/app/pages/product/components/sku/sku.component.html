@@ -22,20 +22,11 @@ keyExpr="id"
   [useIcons]="true"
 >
   <dxo-form>
-    <dxi-item itemType="group" caption="Produto" name="prodEdit">
+    <dxi-item itemType="group" caption="Sku" name="prodEdit">
       <dxi-item dataField="name"></dxi-item>
       <dxi-item dataField="description"></dxi-item>
       <dxi-item dataField="price"></dxi-item>
       <dxi-item dataField="active" dataType="boolean" type="boolean"></dxi-item>
-      <!-- <dxi-item dataField="discount" ></dxi-item> -->
-      <!-- <dxi-item
-        name="catName"
-        isRequired="true"
-        dataField="Categoria"
-        editorType="dxSelectBox"
-        [editorOptions]="{dataSource: categories, value: getValue(), onSelectionChanged: onSelectionChanged, valueExpr:'id', displayExpr: 'name'}"
-        >
-      </dxi-item>  -->
     </dxi-item>
 
 
@@ -50,7 +41,6 @@ keyExpr="id"
       (onSaved)="onSavedImages($event)"
       (onRowRemoved)="deleteImage($event)"
       >
-      <!-- (onSaved)="productAdding($event)" -->
       <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
       <dxo-filter-row [visible]="true"></dxo-filter-row>
       <dxo-header-filter [visible]="true"></dxo-header-filter>
@@ -69,21 +59,6 @@ keyExpr="id"
       <dxi-button name="adding"></dxi-button>
       <dxi-button name="edit"></dxi-button>
       </dxi-column>
-<!-- parei aqui fazendo o combobox -->
-      <!-- <dxi-column 
-        name="droplol" 
-        dataField="description" 
-        caption="Skus" 
-        [setCellValue]="setCellValue"
-        (selectedFilterOperationChange)="onEditorPreparing($event)"
-      >
-        <dxo-lookup
-          [dataSource]="sku" 
-          valueExpr="id"
-          displayExpr="name" 
-        >
-        </dxo-lookup>                
-      </dxi-column> -->
 
       <dxi-column 
         name="droplol" 
@@ -100,9 +75,11 @@ keyExpr="id"
         </dxo-lookup>                
       </dxi-column>
 
-      <!-- <dxi-column dataField="id" [allowEditing]="false"></dxi-column> -->
       <dxi-column dataField="name" [allowEditing]="false" caption="Nome"></dxi-column>
-      <dxi-column dataField="url" [allowEditing]="false" caption="Url"></dxi-column>
+      <dxi-column dataField="url" [allowEditing]="false" caption="Url" cellTemplate="cellTemplate"></dxi-column>
+      <div *dxTemplate="let data of 'cellTemplate'">
+        <a [href]="'http://'+data.value" target="_blank">{{data.value}}</a>
+      </div>
       </dx-data-grid>
     </dxi-item>
 

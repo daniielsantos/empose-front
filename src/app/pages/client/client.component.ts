@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Address } from 'app/shared/models/address.model';
 import { Client } from 'app/shared/models/client.model';
+import notify from 'devextreme/ui/notify';
 import { ClientService } from './services/client.service';
 
 @Component({
@@ -11,9 +13,11 @@ import { ClientService } from './services/client.service';
 })
 export class ClientComponent implements OnInit {
   clients: Client[] = [];
+  clientAddress: [] = [];
+  clientEdit: Client = {}
   readonly allowedPageSizes = [5, 10, 'all'];
 
-  constructor(private clientService: ClientService) { 
+  constructor(private clientService: ClientService, private router: Router) { 
     this.clientService.findAll().subscribe(clients => {
       this.clients = clients;
     })
@@ -22,47 +26,47 @@ export class ClientComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  customizeColumns(columns: any) {
-    // columns[0].width = 300;
+  alert(msg: string) {
+    notify({message: msg, width: 400})
+    return new Promise(resolve => setTimeout(() => {
+      this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['client']);
+      });
+      resolve('a')
+    }, 2000))
+  }
+
+  clientEditing(e: any) {
+    console.log('aaaaaa ', e.data)
+    this.clientAddress = []
+    this.clientEdit = e.data
+    if(e.data.address[0].id){
+      this.clientAddress = e.data.address
+      console.log("entrou if ", this.clientAddress)
+    }
   }
 
   onSavedClient(data: any) {
-    console.log('clients ', this.clients)
-    console.log("data ", data)
-    if(data.changes[0] && data.changes[0].type == "update") {
-      if(data.changes[0].data["address"]) {
-        let cli = this.clients.find(x => x.id == data.changes[0].data["id"]) || {}
-        let addr: Address = {}
-        addr.address = data.changes[0].data["address"].address ? data.changes[0].data["address"]?.address : cli?.address![0].address
-        addr.city = data.changes[0].data["address"].city ? data.changes[0].data["address"]?.city : cli?.address![0].city
-        addr.state = data.changes[0].data["address"].state ? data.changes[0].data["address"]?.state : cli?.address![0].state
-        addr.zip_code = data.changes[0].data["address"].zip_code ? data.changes[0].data["address"]?.zip_code : cli?.address![0].zip_code
-        addr.country = "BR"
-        cli.address = [addr]
-        this.clientService.update(cli).subscribe(cli => {
-          console.log("Client updated successfully");
-        })
-      }
+    // console.log('this.clients ', this.clients)
+    // console.log('this.clientAddress ', this.clientAddress)
+    // console.log('this.this.clientEdit ', this.clientEdit)
+    // console.log('data ', data)
+    if(this.clientEdit) {
+      console.log("entrou update ", data, ' data.changes[0].key ', data.changes[0].key)
+      this.clientService.update(this.clientEdit).subscribe(async(cli) => {
+        // console.log("Client updated successfully");
+        await this.alert("Cliente atualizado!")
+      })
     }
     
     if(data.changes[0] && data.changes[0].type == "insert") {
-      console.log("entrou insert ", data.changes[0])
+      let found = this.clients.find(c => typeof c.id == 'string')      
       let c: Client = {
-        name: data.changes[0].data["name"],
-        email: data.changes[0].data["email"],
-        cpf: data.changes[0].data["cpf"],
-        phone_number: data.changes[0].data["phone_number"]
+        ...found,
+        address: this.clientAddress
       }
-  
-      const addr: Address = {}
-      addr.address = data.changes[0].data["address[0]"].address
-      addr.city = data.changes[0].data["address[0]"].city
-      addr.state = data.changes[0].data["address[0]"].state
-      addr.zip_code = data.changes[0].data["address[0]"].zip_code
-      addr.country = "BR"
-      c.address = [addr]
-      this.clientService.save(c).subscribe(client => {
-        console.log("Client saved successfully ",client);
+      this.clientService.save(c).subscribe(async (client) => {
+        await this.alert("Cliente inserido!")
       })
     }
   }

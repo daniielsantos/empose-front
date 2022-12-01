@@ -18,10 +18,11 @@ export class SidenavComponent implements OnInit {
 
   private roles: string = '';
   isLoggedIn = false;
-  showAdminBoard = false;
-  showModeratorBoard = false;
   username?: string;
   userRole?: string;
+  store?: string;
+  user: any;
+  showConfigPage: boolean = false
   userRoles = [
     {
       id: 1,
@@ -64,12 +65,14 @@ export class SidenavComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      this.roles = user.role;
-      this.userRole = this.userRoles.find(e => e.id == user.role)?.name//user.role;
-      if(this.roles == 'admin')
-        this.showAdminBoard = true
-      this.username = user.name;
+      this.user = this.tokenStorageService.getUser();
+      this.store = this.user.store.name
+      this.roles = this.user.role;
+      if(this.roles != '1')
+        this.showConfigPage = true
+
+      this.userRole = this.userRoles.find(e => e.id == this.user.role)?.name
+      this.username = this.user.name;
     }
   }
   getUser() {

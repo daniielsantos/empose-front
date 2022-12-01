@@ -6,7 +6,7 @@
       [showBorders]="true"
       keyExpr="id"
       (onSaved)="onSavedClient($event)"
-      (onRowRemoved)="onRemovedClient($event)"
+      (onRowRemoved)="onRemovedClient($event)"      
     >
     <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
         
@@ -39,8 +39,15 @@
     </dxi-column>
     <dxi-column dataField="id" caption="Id" [allowEditing]="false"></dxi-column>
     <dxi-column dataField="name" caption="Nome"></dxi-column>
-    <dxi-column dataField="path" caption="Caminho" width="500" [allowEditing]="false"></dxi-column>
-    <dxi-column dataField="created_at" type="date" caption="Criação" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="path" caption="Caminho" width="500" [allowEditing]="false" cellTemplate="cellTemplate" [allowFiltering]="false"
+    [allowSorting]="false">
+
+    </dxi-column>
+    <dxi-column dataField="created_at" type="date" caption="Criação" dataType="date" [allowEditing]="false"></dxi-column>
+
+    <div *dxTemplate="let data of 'cellTemplate'">
+      <a [href]="'http://'+data.value" target="_blank">{{data.value}}</a>
+    </div>
   </dx-data-grid>
   <div class="row d-flex justify-content-center align-items-center h-50">
     <div class="col-12 col-md-8 col-lg-6 col-xl-5">

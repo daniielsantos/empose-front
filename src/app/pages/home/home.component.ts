@@ -84,15 +84,17 @@ export class HomeComponent implements AfterViewInit {
 
   filterOrdersByMonth() {
     this.orders.forEach(it => {
-      let date = new Date(it.created_at || '')
-      if(date.getFullYear() == new Date().getFullYear()) {
-        this.totalByMonth = this.totalByMonth.filter(i => {
-          if(i.month == date.getMonth() + 1) {
-            let total = it.total || 0
-            i.total += parseFloat(total.toString())
-          }
-          return i
-        })
+      if(it.status == 2 && !it.canceled) {
+        let date = new Date(it.created_at || '')
+        if(date.getFullYear() == new Date().getFullYear()) {
+          this.totalByMonth = this.totalByMonth.filter(i => {
+            if(i.month == date.getMonth() + 1) {
+              let total = it.total || 0
+              i.total += parseFloat(total.toString())
+            }
+            return i
+          })
+        }
       }
     })
   }

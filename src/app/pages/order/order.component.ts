@@ -1,6 +1,6 @@
 import { NgModule, Component, enableProdMode, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Orders } from 'app/shared/models/order.model';
+import { deviveryStatusEnum, Orders, statusEnum } from 'app/shared/models/order.model';
 import notify from 'devextreme/ui/notify';
 import { environment } from 'environments/environment';
 import { OrderService } from './services/order.service';
@@ -18,26 +18,9 @@ export class OrderComponent implements OnInit {
   readonly allowedPageSizes = [5, 10, 'all'];
   orders: Orders[] = [];
   orderItems: Orders[] = [];
-  deviveryStatusEnum = [
-    {
-      id: 1,
-      name: 'AGUARDANDO',
-    },
-    {
-      id: 2,
-      name: 'ENVIADO',
-    }
-  ]
-  statusEnum = [
-    {
-      id: 1,
-      name: 'AGUARDANDO PAGAMENTO',
-    },
-    {
-      id: 2,
-      name: 'PAGO',
-    }
-  ]
+  deviveryStatusEnum = deviveryStatusEnum 
+  statusEnum = statusEnum
+
 
   constructor(private orderService: OrderService, private router: Router) { 
     this.orderService.findAll().subscribe(orders => {

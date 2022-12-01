@@ -39,7 +39,8 @@ export class ConfigComponent implements OnInit {
     })
   }
   onSubmit(e: any) {
-    if(e.changes[0].type == 'insert') {
+    if(e.changes[0].type == 'insert' && !this.config) {
+      console.log('this.config ', this.config)
       this.configService.save(e.changes[0].data).subscribe(config => {
         this.config = config
         notify({message: 'Configurações inseridas', width: 400})
@@ -60,5 +61,9 @@ export class ConfigComponent implements OnInit {
         notify({message: 'Configurações atualizadas', width: 400})
       })
     }
+  }
+
+  customizeText(e: any) {
+    return '***********************'
   }
 }
