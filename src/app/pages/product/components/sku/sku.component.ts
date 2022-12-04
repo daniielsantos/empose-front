@@ -63,14 +63,13 @@ export class SkuComponent implements OnInit {
     const files = this.fileUploads.find(s => s.id == value)
     rowData.id = files!.id;
     rowData.name = files!.name;
-    rowData.url = files?.path
+    rowData.path = files?.path
   };
 
 
 
   skuEdit(e: any) {
     this.skusEditing = e.data
-    console.log("entoru sku edit ", this.skusEditing)
     if(this.skusEditing.images![0].id) {
       this.skuEditingImages = e.data.images
     }
@@ -108,24 +107,16 @@ export class SkuComponent implements OnInit {
   }
 
   onSavedImages(data: any) {
-    console.log('entrou saved image ', data)
-    // this.skuEditingImages.forEach(it => {
-    //       if(it.id != data.changes[0].data.id) {
-    //         console.log("entrou if ")
-    //       }
-    // });
-    // this.skuEditingImages.push(data.changes[0].data)
+    let res = this.skuEditingImages.find((it, index) => { 
+      if(it.id == data.changes[0].key) {
+        this.skuEditingImages[index].path = this.skuEditingImages[index].path?.split(/\/(.*)/)[1]
+      }
+    })
   }
 
-  deleteSku(data: any) {
-    console.log('data aaaa ', data.data)
-    // this.skuService.remove(data.data).subscribe(res => {
-    //   console.log('deletou ', res)
-    // })
-  }
+
 
   deleteImage(data: any) {
     console.log("entrou para deletar ",data)
-
   }
 }

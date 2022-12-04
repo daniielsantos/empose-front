@@ -36,9 +36,7 @@ export class UsersComponent implements OnInit {
   }
 
   onSavedUser(data: any) {
-    console.log("data ", data)
     if(data.changes[0] && data.changes[0].type == "update") {
-      console.log('this.sessionUser.id ', this.sessionUser.id, ' data.changes[0].id ', data.changes[0])
       if(this.sessionUser.id != data.changes[0].key && this.sessionUser.role != 1){
         notify({message: 'Sem autorização!', type: 'error', width: 400})
         return
@@ -63,15 +61,15 @@ export class UsersComponent implements OnInit {
     }
   }
 
-
-  customizeText(e:any) {
-    return '***********************'
-  }
-
   onRemovedUser(data: any) {
     this.userService.delete(data.data).subscribe(paymentMethods => {
       notify({message: 'Usuário excluído!', width: 400})
     })
   }
 
+  onEditorPreparing(e: any) {
+    if(e.parentType == "dataRow" && e.dataField == "password") {
+      e.editorOptions.mode = 'password';
+    }
+ }
 }

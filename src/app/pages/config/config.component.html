@@ -5,6 +5,7 @@
     [showBorders]="true"
     keyExpr="id"
     (onSaved)="onSubmit($event)"
+    (onEditorPreparing)="onEditorPreparing($event)"
 >
 <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
     
@@ -38,5 +39,5 @@
 <dxi-column dataField="email_host" caption="Email host"></dxi-column>
 <dxi-column dataField="email_port" caption="Email porta"></dxi-column>
 <dxi-column dataField="email_username" caption="Email usuário"></dxi-column>
-<dxi-column dataField="email_password" caption="Email senha" [customizeText]="customizeText"></dxi-column>
+<dxi-column dataField="email_password" caption="Email senha" [visible]="false" [formItem]="{visible: true}"></dxi-column>
 </dx-data-grid>

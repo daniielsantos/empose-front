@@ -64,7 +64,7 @@ keyExpr="id"
 
       <dxi-column 
         name="droplol" 
-        dataField="url" 
+        dataField="path" 
         caption="Imagem" 
         [setCellValue]="setCellValue"
         (selectedFilterOperationChange)="onEditorPreparing($event)"
@@ -78,7 +78,7 @@ keyExpr="id"
       </dxi-column>
 
       <dxi-column dataField="name" [allowEditing]="false" caption="Nome"></dxi-column>
-      <dxi-column dataField="url" [allowEditing]="false" caption="Url" cellTemplate="cellTemplate"></dxi-column>
+      <dxi-column dataField="path" [allowEditing]="false" caption="Url" cellTemplate="cellTemplate"></dxi-column>
       <div *dxTemplate="let data of 'cellTemplate'">
         <a [href]="'http://'+data.value" target="_blank">{{data.value}}</a>
       </div>

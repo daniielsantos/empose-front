@@ -7,6 +7,7 @@
       keyExpr="id"
       (onSaved)="onSavedUser($event)"
       (onRowRemoved)="onRemovedUser($event)"
+      (onEditorPreparing)="onEditorPreparing($event)"
     >
     <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
         
@@ -32,12 +33,12 @@
       [useIcons]="true"
       [allowAdding]="true"
     >
-    <dxo-form>
+    <!-- <dxo-form>
         <dxi-item dataField="name" [allowEditing]="false"></dxi-item>
         <dxi-item dataField="email" caption="Email" [width]="125"></dxi-item>
-        <dxi-item dataField="password" caption="Cancelar" [customizeText]="customizeText"></dxi-item>
-        <dxi-item dataField="role" caption="Cancelar"></dxi-item>
-    </dxo-form>
+        <dxi-item dataField="password" caption="Senha"></dxi-item>
+        <dxi-item dataField="role" caption="Função"></dxi-item>
+    </dxo-form> -->
   
   </dxo-editing>
   
@@ -45,10 +46,9 @@
       <dxi-button name="edit"></dxi-button>
       <dxi-button name="delete"></dxi-button>  
     </dxi-column>
-    <!-- <dxi-column dataField="id" caption="Id"></dxi-column> -->
     <dxi-column dataField="name" caption="Nome"></dxi-column>
     <dxi-column dataField="email" caption="Email"></dxi-column>
-    <dxi-column dataField="password" caption="Senha" [customizeText]="customizeText" [allowEditing]="sessionUser.role == 1 || sessionUser.role == 2"></dxi-column>
+    <dxi-column dataField="password" caption="Senha" [visible]="false" [formItem]="{visible: true}" [allowEditing]="sessionUser.role == 1 || sessionUser.role == 2"></dxi-column>
     <dxi-column dataField="role" caption="Função" [allowEditing]="sessionUser.role == 1">
       <dxo-lookup [dataSource]="userRoles" displayExpr="name" valueExpr="id">
       </dxo-lookup>

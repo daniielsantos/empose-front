@@ -66,4 +66,11 @@ export class ConfigComponent implements OnInit {
   customizeText(e: any) {
     return '***********************'
   }
+
+  onEditorPreparing(e: any) {
+    if(e.parentType == "dataRow" && e.dataField == "email_password") {
+      e.editorOptions.mode = 'password';
+    }
+ }
+ 
 }

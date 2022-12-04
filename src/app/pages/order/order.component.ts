@@ -12,6 +12,7 @@ import { ClientService } from '../client/services/client.service';
 import { PaymentMethodService } from '../payment-method/services/payment-method.service';
 import { Client } from 'app/shared/models/client.model';
 import { PaymentMethods } from 'app/shared/models/payment.methods.model';
+import dxButton from 'devextreme/ui/button';
 
 
 @Component({
@@ -159,5 +160,12 @@ export class OrderComponent implements OnInit {
     }).then(() => {
       doc.save('pedidos.xls');
     });
+  }
+
+  onContentReady(e: any) {
+    if (e.element.querySelector("div[role='form']")) {  
+      var saveButtonInstance = dxButton.getInstance(e.element.querySelector(".dx-datagrid-form-buttons-container div[aria-label='Save']"));  
+      saveButtonInstance.option("disabled", true);
+    } 
   }
 }

@@ -9,8 +9,10 @@ keyExpr="id"
 (onEditingStart)="orderEditing($event)"
 (onEditCanceled)="cancelOrderEditing()"
 (onSaved)="saveOrder($event)"
+(onContentReady)="onContentReady($event)"
 >
 <dxo-paging [enabled]="true" [pageSize]="5"> </dxo-paging>
+
 <dxo-pager
   [visible]="true"
   [allowedPageSizes]="allowedPageSizes"
@@ -34,7 +36,6 @@ mode="form"
 [useIcons]="true"
 >
 <dxo-form>
-
   <dxi-item itemType="group" caption="Cliente" name="orderEdit">
       <dxi-item dataField="client.id" caption="Cliente">
         <dxo-lookup [dataSource]="clients" displayExpr="name" valueExpr="id">
@@ -81,7 +82,7 @@ mode="form"
     </dxo-editing>
     <dxi-column type="buttons" [width]="90">
     <dxi-button name="delete"></dxi-button>
-    <dxi-button name="save"></dxi-button>
+    <dxi-button name="save" ></dxi-button>
     <dxi-button name="cancel"></dxi-button>
     <!-- <dxi-button name="adding"></dxi-button> -->
     <!-- <dxi-button name="edit"></dxi-button> -->
@@ -145,6 +146,6 @@ mode="form"
 <dxi-column dataField="total" caption="Total"></dxi-column>
 
 <dxi-column dataField="created_at" caption="Data Criação" dataType="date"></dxi-column>
-<dxi-column dataField="canceled" caption="Cancelada" [width]="100"></dxi-column>
+<dxi-column dataField="canceled" caption="Cancelada" dataType="boolean" [width]="100"></dxi-column>
 
 </dx-data-grid>
