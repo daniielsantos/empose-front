@@ -165,7 +165,7 @@ export class OrderComponent implements OnInit {
   onContentReady(e: any) {
     if (e.element.querySelector("div[role='form']")) {  
       var saveButtonInstance = dxButton.getInstance(e.element.querySelector(".dx-datagrid-form-buttons-container div[aria-label='Save']"));  
-      saveButtonInstance.option("disabled", true);
+      saveButtonInstance.option("disabled", this.orderEdit.canceled);
     } 
   }
 }
