@@ -60,7 +60,7 @@ export class RegisterComponent implements OnInit {
       email: email,
       password: password,
       store: userStore,
-      role: 2
+      role: 1
     }
     this.registeService.save(userRegister).subscribe(
       async (data) => {

@@ -111,6 +111,7 @@
         <dxi-column dataField="description" caption="Descrição"></dxi-column>
         <dxi-column dataField="discount" caption="Desconto"></dxi-column>
         <dxi-column dataField="category.id" [allowEditing]="true" caption="Categoria">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
           <dxo-lookup [dataSource]="categories" displayExpr="name" valueExpr="id">
           </dxo-lookup>
         </dxi-column>          
