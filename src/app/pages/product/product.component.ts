@@ -58,15 +58,12 @@ export class ProductComponent implements AfterViewInit {
       console.log("prod ", products)
       this.products = products;
     })
-
-
-
   }
-  alert(msg: string) {
-    notify({message: msg, width: 400})
+  
+  alert(msg: string, type: string) {
+    notify({message: msg, type: type, width: 400})
     return new Promise(resolve => setTimeout(() => {
       this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-        console.log('redirect')
         this.router.navigate(['product']);
       });
       resolve('a')
@@ -92,9 +89,14 @@ export class ProductComponent implements AfterViewInit {
 
 
   deleteProduct(e: any) {
-    this.productService.delete(e.data).subscribe(async (res) => {
-      await this.alert("Produto deletado!")
-    })
+    this.productService.delete(e.data).subscribe({
+      next: async (value) => {
+        await this.alert('Produto deletado!', 'success')
+      },
+      error: async (err) => {
+        await this.alert(err.error.message, 'error')
+      }
+    })    
   }
 
   onExporting(e: any) {
@@ -116,9 +118,14 @@ export class ProductComponent implements AfterViewInit {
 
     if(this.prodEditing) {
       console.log("product editing ", this.prodEditing)
-      this.productService.update(this.prodEditing).subscribe(async (product) => {
-        await this.alert("Produto atualizado!")
-      })
+      this.productService.update(this.prodEditing).subscribe({
+        next: async (value) => {
+          await this.alert('Produto atualizado!', 'success')
+        },
+        error: async (err) => {
+          await this.alert(err.error.message, 'error')
+        }
+      }) 
     }
 
     if(data.changes.length && data.changes[0].type == "insert") {
@@ -137,12 +144,14 @@ export class ProductComponent implements AfterViewInit {
         skus: this.prodSkus,
         discount: data.changes[0].data.discount || 0
       }
-      this.productService.save(prodPayload).subscribe(async (res) => {
-        await this.alert("Produto criado!")
-        // this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-        //   this.router.navigate(['product']);
-        // });
-      })      
+      this.productService.save(prodPayload).subscribe({
+        next: async (value) => {
+          await this.alert('Produto criado!', 'success')
+        },
+        error: async (err) => {
+          await this.alert(err.error.message, 'error')
+        }
+      })    
     }
   }
 
