@@ -12,7 +12,8 @@ keyExpr="id"
 (onContentReady)="onContentReady($event)"
 >
 <dxo-paging [enabled]="true" [pageSize]="5"> </dxo-paging>
-
+<dxo-filter-row [visible]="true"></dxo-filter-row>
+<dxo-header-filter [visible]="true"></dxo-header-filter>
 <dxo-pager
   [visible]="true"
   [allowedPageSizes]="allowedPageSizes"
@@ -121,7 +122,7 @@ mode="form"
 <dxi-button name="delete"></dxi-button>
 </dxi-column>
 
-<dxi-column dataField="id" [width]="70" caption="Id"></dxi-column>
+<!-- <dxi-column dataField="id" [width]="70" caption="Id"></dxi-column> -->
 <dxi-column dataField="client.id" caption="Cliente">
   <dxi-validation-rule type="required"></dxi-validation-rule>
   <dxo-lookup [dataSource]="clients" displayExpr="name" valueExpr="id">
@@ -143,9 +144,9 @@ mode="form"
   <dxo-lookup [dataSource]="paymentMethods" displayExpr="name" valueExpr="id">
   </dxo-lookup>
 </dxi-column>
-<dxi-column dataField="total" caption="Total"></dxi-column>
+<dxi-column dataField="total" [width]="115" caption="Total"></dxi-column>
 
-<dxi-column dataField="created_at" caption="Data Criação" dataType="date"></dxi-column>
+<dxi-column dataField="created_at" [width]="115" caption="Data Criação" dataType="date"></dxi-column>
 <dxi-column dataField="canceled" caption="Cancelada" dataType="boolean" [width]="100"></dxi-column>
 
 </dx-data-grid>

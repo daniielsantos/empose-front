@@ -6,6 +6,7 @@ import { EmailSenderService } from './services/email-sender.service';
 import { EmailOptions } from 'app/shared/models/email.model';
 import notify from 'devextreme/ui/notify';
 import { Configs } from 'app/shared/models/configs.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-email-sender',
@@ -28,7 +29,11 @@ export class EmailSenderComponent implements OnInit {
 
   
 
-  constructor(private clientService: ClientService, private emailSenderService: EmailSenderService) { 
+  constructor(
+    private clientService: ClientService, 
+    private emailSenderService: EmailSenderService,
+    private router: Router,
+    ) { 
     this.allMode = 'allPages'
     this.checkBoxesMode = 'always' //themes.current().startsWith('material') ? 'always' : 'onClick';
     this.emailSenderService.getConfigs().subscribe(config => {
@@ -57,13 +62,31 @@ export class EmailSenderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  alert(msg: string, type: string) {
+    notify({message: msg, type: type, width: 400})
+    return new Promise(resolve => setTimeout(() => {
+      this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['email']);
+      });
+      resolve('a')
+    }, 2000))
+  }
+
 
   onCheckboxValueChanged(e: any) {
     console.log(e)
   }
 
   async onSubmit() {
-    console.log(this.clientSelected)
+    if(!this.config) {
+      await this.alert('Sistema sem configuração de email!', 'error')
+      return
+    }
+    if(!this.clientSelected.length) {
+      await this.alert('Selecione um cliente!', 'error')
+      return
+    }
+    let emailListSize = 0
     for await (const it of this.clientSelected) {
       let options: EmailOptions = {
         host: this.config.email_host,
@@ -81,8 +104,16 @@ export class EmailSenderComponent implements OnInit {
         text: this.contentText,
         html: ""
       }
-      this.emailSenderService.sendEmail(options).subscribe(res => {
-        notify({message: 'Email enviado!', width: 400})
+      this.emailSenderService.sendEmail(options).subscribe({
+        next: async (value) => {
+          emailListSize +=1
+          if(emailListSize == this.clientSelected.length) {
+            notify({message: 'Email enviado!', width: 400})
+          }
+        },
+        error: async (err) => {
+          await this.alert(err.error.message, 'error')
+        }
       })
     }
   }
