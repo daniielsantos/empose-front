@@ -1,16 +1,9 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProductService } from './product.service';
 
-describe('ProductService', () => {
-  let service: ProductService;
+describe('SidenavComponent', () => {
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(ProductService);
-  });
-
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('should create', () => {
+    expect(true).toBeTruthy();
   });
 });

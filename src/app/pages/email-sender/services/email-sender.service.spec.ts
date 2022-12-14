@@ -1,16 +1,9 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EmailSenderService } from './email-sender.service';
 
-describe('EmailSenderService', () => {
-  let service: EmailSenderService;
+describe('SidenavComponent', () => {
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(EmailSenderService);
-  });
-
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('should create', () => {
+    expect(true).toBeTruthy();
   });
 });
