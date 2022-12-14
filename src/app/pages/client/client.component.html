@@ -36,8 +36,8 @@
     <dxi-item itemType="group" caption="Cliente" name="Cliente">
       <dxi-item dataField="name" [allowEditing]="false"></dxi-item>
       <dxi-item dataField="email" caption="Email" [width]="125"></dxi-item>
-      <dxi-item dataField="cpf" caption="Cancelar"></dxi-item>
-      <dxi-item dataField="phone_number" caption="Cancelar"></dxi-item>
+      <dxi-item dataField="cpf" [editorOptions]="{maxLength: 11 }" caption="Cancelar"></dxi-item>
+      <dxi-item dataField="phone_number" [editorOptions]="{maxLength: 11 }" caption="Cancelar" dataType="number"></dxi-item>
     </dxi-item>
 
     <dxi-item itemType="group" caption="Endereços" name="Endereço">
@@ -66,11 +66,11 @@
       <dxi-button name="edit"></dxi-button>
       </dxi-column>
   
-      <dxi-column dataField="address" caption="Endereço" allowEditing="false"></dxi-column>
-      <dxi-column dataField="city" caption="Cidade" allowEditing="false"></dxi-column>
-      <dxi-column dataField="state" caption="Estado" allowEditing="false"></dxi-column>
-      <dxi-column dataField="country" caption="País" allowEditing="false"></dxi-column>
-      <dxi-column dataField="zip_code" caption="Cep" allowEditing="false"></dxi-column>
+      <dxi-column dataField="address" caption="Endereço"></dxi-column>
+      <dxi-column dataField="city" caption="Cidade"></dxi-column>
+      <dxi-column dataField="state" caption="Estado"></dxi-column>
+      <dxi-column dataField="country" caption="País"></dxi-column>
+      <dxi-column dataField="zip_code" caption="Cep" [editorOptions]="{maxLength: 6 }" dataType="number"></dxi-column>
   
       </dx-data-grid>
 
@@ -85,12 +85,12 @@
   </dxi-column>
   <dxi-column dataField="name" caption="Nome"></dxi-column>
   <dxi-column dataField="email"></dxi-column>
-  <dxi-column dataField="cpf"></dxi-column>
-  <dxi-column dataField="phone_number" caption="Telefone"></dxi-column>
+  <dxi-column dataField="cpf" [editorOptions]="{maxLength: 11 }"></dxi-column>
+  <dxi-column dataField="phone_number" [editorOptions]="{maxLength: 11 }" caption="Telefone" dataType="number"></dxi-column>
   <dxi-column dataField="address[0].address" [width]="130" caption="Endereço"></dxi-column>
   <dxi-column dataField="address[0].city" [width]="130" caption="Cidade"></dxi-column>
   <dxi-column dataField="address[0].state" [width]="125" caption="Estado"></dxi-column>
-  <dxi-column dataField="address[0].zip_code" [width]="125" caption="CEP"></dxi-column>
+  <dxi-column dataField="address[0].zip_code" [width]="125" caption="CEP" [editorOptions]="{maxLength: 6 }" dataType="number"></dxi-column>
   
 </dx-data-grid>
 

@@ -36,8 +36,6 @@ export class ProductComponent implements AfterViewInit {
   active: number = 1;
   readonly allowedPageSizes = [5, 10, 'all'];
   prodEditing!: Product 
-  
-  idCounter: number = 0
   selectedCategoryId: any = {}
 
 
@@ -110,7 +108,7 @@ export class ProductComponent implements AfterViewInit {
     });
   }
 
-  onSavedProduct(data: any) {
+  async onSavedProduct(data: any) {
     console.log('data ', data)
    
     if(data.changes.length && this.prodEditing)
@@ -118,6 +116,12 @@ export class ProductComponent implements AfterViewInit {
 
     if(this.prodEditing) {
       console.log("product editing ", this.prodEditing)
+      let res = this.prodEditing.skus?.map(it => {
+        if(typeof it.id == 'string') {
+          it.id = 0
+        }
+        return it
+      })
       this.productService.update(this.prodEditing).subscribe({
         next: async (value) => {
           await this.alert('Produto atualizado!', 'success')
@@ -130,7 +134,7 @@ export class ProductComponent implements AfterViewInit {
 
     if(data.changes.length && data.changes[0].type == "insert") {
       if(!this.prodSkus.length) {
-        notify("Insira os skus")
+        await this.alert('Insira os skus', 'error')
         return
       }
       let category: Category = {
@@ -156,9 +160,6 @@ export class ProductComponent implements AfterViewInit {
   }
 
   setCellValue = (rowData: any, value: any) => {
-    // console.log("rowData.id ", this.idCounter)
-    // this.idCounter = this.idCounter -1
-    // rowData.id = this.idCounter;
     rowData.name = value;
     rowData.active = true
   };

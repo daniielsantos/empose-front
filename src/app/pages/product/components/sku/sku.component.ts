@@ -44,11 +44,10 @@ export class SkuComponent implements OnInit {
     });
   }
   
-  alert(msg: string) {
-    notify({message: msg, width: 400})
+  alert(msg: string, type: string) {
+    notify({message: msg, type: type, width: 400})
     return new Promise(resolve => setTimeout(() => {
       this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-        console.log('redirect')
         this.router.navigate(['product']);
       });
       resolve('a')
@@ -83,26 +82,41 @@ export class SkuComponent implements OnInit {
     // if(!data.changes || data.changes[0].type != 'remove') {
     if(this.skusEditing && !data.changes.length) {
       console.log('entrou update ',this.skusEditing)
-      this.skuService.update(this.skusEditing).subscribe(async (skus) => {
-        await this.alert("Sku atualizado")        
-      })
+      this.skuService.update(this.skusEditing).subscribe({
+        next: async (value) => {
+          await this.alert('Sku atualizado!', 'success')
+        },
+        error: async (err) => {
+          await this.alert(err.error.message, 'error')
+        }
+      })   
       return
     }
     if(this.skusEditing && data.changes[0].type == 'update') {
       console.log('entrou update 2',this.skusEditing)
-      this.skuService.update(this.skusEditing).subscribe(async (skus) => {
-        await this.alert("Sku atualizado")
-      })
+      this.skuService.update(this.skusEditing).subscribe({
+        next: async (value) => {
+          await this.alert('Sku atualizado!', 'success')
+        },
+        error: async (err) => {
+          await this.alert(err.error.message, 'error')
+        }
+      })  
       return
     }
-    if(data.length && data.changes[0].type == 'remove') {
-      console.log('entrouu remove ', this.skusEditing)
+    if(data.changes.length && data.changes[0].type == 'remove') {
       let sku: Sku = {
         id: data.changes[0].key
       }
-      this.skuService.remove(sku).subscribe(async (skus) => {
-        await this.alert("Sku removido!")
-      })
+      this.skuService.remove(sku).subscribe({
+        next: async (value) => {
+          await this.alert('Sku removido!', 'success')
+        },
+        error: async (err) => {
+          await this.alert(err.error.message, 'error')
+        }
+      })  
+
     }
   }
 

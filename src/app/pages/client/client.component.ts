@@ -27,8 +27,8 @@ export class ClientComponent implements OnInit {
     })
   }
 
-  alert(msg: string) {
-    notify({message: msg, width: 400})
+  alert(msg: string, type: string) {
+    notify({message: msg, type: type, width: 400})
     return new Promise(resolve => setTimeout(() => {
       this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
         this.router.navigate(['client']);
@@ -48,34 +48,43 @@ export class ClientComponent implements OnInit {
   }
 
   onSavedClient(data: any) {
-    // console.log('this.clients ', this.clients)
-    // console.log('this.clientAddress ', this.clientAddress)
-    // console.log('this.this.clientEdit ', this.clientEdit)
-    // console.log('data ', data)
-    if(this.clientEdit) {
-      console.log("entrou update ", data, ' data.changes[0].key ', data.changes[0].key)
-      this.clientService.update(this.clientEdit).subscribe(async(cli) => {
-        // console.log("Client updated successfully");
-        await this.alert("Cliente atualizado!")
-      })
+    if(this.clientEdit.id) {
+      this.clientService.update(this.clientEdit).subscribe({
+        next: async (value) => {
+          await this.alert('Cliente atualizado!', 'success')
+        },
+        error: async (err) => {
+          await this.alert(err.error.message, 'error')
+        }
+      }) 
     }
     
-    if(data.changes[0] && data.changes[0].type == "insert") {
+    if(data.changes.length && data.changes[0].type == "insert") {
       let found = this.clients.find(c => typeof c.id == 'string')      
       let c: Client = {
         ...found,
         address: this.clientAddress
       }
-      this.clientService.save(c).subscribe(async (client) => {
-        await this.alert("Cliente inserido!")
-      })
+      this.clientService.save(c).subscribe({
+        next: async (value) => {
+          await this.alert('Cliente inserido!', 'success')
+        },
+        error: async (err) => {
+          await this.alert(err.error.message, 'error')
+        }
+      }) 
     }
   }
 
   onRemovedClient(data: any) {
-    this.clientService.delete(data.data).subscribe(client => {
-      console.log("Client deleted successfully ",client);
-    })
+    this.clientService.delete(data.data).subscribe({
+      next: async (value) => {
+        await this.alert('Cliente removido!', 'success')
+      },
+      error: async (err) => {
+        await this.alert(err.error.message, 'error')
+      }
+    }) 
   }
 
 }
