@@ -22,6 +22,9 @@ export class RegisterService {
     return this.httpClient.post<Users>(`${this.apiUrl}/register`, user)
   }
 
+  serverIp(): Observable<any> {
+    return this.httpClient.get<any>(`${this.apiUrl}/serverip`)
+  }
 
 
 }

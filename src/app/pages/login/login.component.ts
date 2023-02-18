@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Users } from 'app/shared/models/users.model';
@@ -19,9 +20,13 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   roles: string[] = [];
 
-  constructor(private registerService: RegisterService, private tokenStorage: LoginService, private router: Router) { }
+  constructor(private registerService: RegisterService, private tokenStorage: LoginService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.registerService.serverIp().subscribe(result => {
+      console.log("connected ", result)
+    })
+
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
