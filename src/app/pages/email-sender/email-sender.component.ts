@@ -38,7 +38,6 @@ export class EmailSenderComponent implements OnInit {
     this.checkBoxesMode = 'always' //themes.current().startsWith('material') ? 'always' : 'onClick';
     this.emailSenderService.getConfigs().subscribe(config => {
       this.config = config
-      console.log('configs ', config)
     })
     this.clientService.findAll().subscribe(clients => {
       this.clients = clients
