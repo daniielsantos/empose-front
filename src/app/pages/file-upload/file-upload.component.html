@@ -70,7 +70,7 @@
                     selectButtonText="Select photo"
                     name="file"
                     labelText=""
-                    accept="image/*"
+                    allowedFileExtensions: ['.jpg', '.jpeg', '.gif', '.png', '.mp4', '.wav', '.mp3']
                     uploadMode="useButtons"
                     (onUploadStarted)="startUpload($event)"
                   >
