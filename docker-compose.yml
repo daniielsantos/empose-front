@@ -9,9 +9,9 @@ services:
       - ./share:/usr/share/nginx/html
       - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
-      - 4200:80
+      - 80:80
     environment:
-      - NGINX_HOST=0.0.0.0
       - NGINX_PORT=80
+      - NGINX_HOST=0.0.0.0
 
 #http://localhost:8080/?pgsql=db&username=empose&db=empose&ns=public
